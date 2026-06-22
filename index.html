@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VeloRescue - Pomoc drogowa 24/7</title>
+  <meta name="description" content="Nowoczesna pomoc drogowa 24/7. Dojazd średnio w 15 minut, pełna obsługa awarii i holowanie.">
+  <meta name="theme-color" content="#262c33">
+  <meta property="og:title" content="VeloRescue - pomoc drogowa 24/7">
+  <meta property="og:description" content="Awaria, brak paliwa lub przebita opona. Wysyłamy najbliższą ekipę i prowadzimy Cię od zgłoszenia do końca interwencji.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../resources/img/hero.png">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23262c33'/%3E%3Cpath d='M16 39h32l-5 10H21z' fill='%23ef6c1f'/%3E%3Cpath d='M20 22h24l-4 12H24z' fill='%23f7f9fc'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Przejdź do treści</a>
+
+  <header class="site-header">
+    <div class="header-actions header-actions-floating">
+      <button id="theme-toggle" class="theme-toggle" type="button" role="switch" aria-label="Zmień motyw" aria-checked="false">
+        <span class="theme-toggle-track" aria-hidden="true">
+          <span class="theme-icon sun">☀</span>
+          <span class="theme-icon moon">☾</span>
+          <span class="theme-toggle-thumb"></span>
+        </span>
+      </button>
+      <a href="tel:+48123456789" class="btn btn-primary btn-call" aria-label="Zadzwoń teraz">
+        <span aria-hidden="true" class="call-icon">☎</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main-content" class="page">
+    <section class="hero section-gap tone-gunmetal">
+      <div class="hero-shell">
+        <figure class="hero-media reveal" aria-hidden="true">
+          <video class="hero-video" autoplay muted loop playsinline preload="metadata">
+            <source src="hero.mp4" type="video/mp4">
+          </video>
+        </figure>
+        <div class="hero-overlay" aria-hidden="true"></div>
+
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <p class="kicker">Pomoc techniczna 24/7</p>
+            <h1>Stajesz na drodze. My ruszamy natychmiast.</h1>
+            <p class="hero-subtext">Jedno połączenie i wysyłamy najbliższą ekipę. Naprawa na miejscu albo bezpieczny transport, bez chaosu i bez straty czasu.</p>
+            <div class="hero-cta">
+              <a href="tel:+48123456789" class="btn btn-primary">Zadzwoń teraz</a>
+              <a href="#jak-dzialamy" class="btn btn-ghost">Zobacz proces</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trusted section-tight tone-steel" aria-label="Najczęściej obsługiwane marki aut">
+      <div class="container trusted-grid">
+        <p class="trusted-title">Najczęściej obsługujemy kierowców aut marek</p>
+        <div class="trusted-brands" role="list" aria-label="Przykładowe marki pojazdów">
+          <span class="brand-mark brand-skoda" role="listitem" aria-label="Skoda" title="Skoda">
+            <img src="https://cdn.simpleicons.org/skoda" alt="Skoda" loading="lazy" decoding="async">
+          </span>
+          <span class="brand-mark brand-volkswagen" role="listitem" aria-label="Volkswagen" title="Volkswagen">
+            <img src="https://cdn.simpleicons.org/volkswagen" alt="Volkswagen" loading="lazy" decoding="async">
+          </span>
+          <span class="brand-mark brand-toyota" role="listitem" aria-label="Toyota" title="Toyota">
+            <img src="https://cdn.simpleicons.org/toyota" alt="Toyota" loading="lazy" decoding="async">
+          </span>
+          <span class="brand-mark brand-ford" role="listitem" aria-label="Ford" title="Ford">
+            <img src="https://cdn.simpleicons.org/ford" alt="Ford" loading="lazy" decoding="async">
+          </span>
+          <span class="brand-mark brand-bmw" role="listitem" aria-label="BMW" title="BMW">
+            <img src="https://cdn.simpleicons.org/bmw" alt="BMW" loading="lazy" decoding="async">
+          </span>
+        </div>
+      </div>
+      <p class="trusted-note container">To przykłady marek pojazdów z naszych interwencji, a nie lista partnerów biznesowych.</p>
+    </section>
+
+    <section id="uslugi" class="services section-gap tone-carbon">
+      <div class="container">
+        <h2 class="section-title reveal">Obsługujemy każdą sytuację na trasie.</h2>
+        <p class="section-lead reveal">Jeden numer. Jedna odpowiedzialna ekipa. Jedna decyzja po Twojej stronie.</p>
+
+        <div class="services-cases">
+          <article class="service-story reveal" data-service-story>
+            <div class="service-story-media">
+              <video class="service-story-video" muted loop playsinline preload="auto">
+                <source src="tow.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="service-story-copy">
+              <div class="service-story-head">
+                <span class="service-story-index">01</span>
+                <h3>Holowanie i bezpieczny transport</h3>
+              </div>
+              <p>Platforma dostosowana do aut osobowych i dostawczych. Transport do wskazanego warsztatu lub domu.</p>
+            </div>
+          </article>
+
+          <article class="service-story reveal" data-service-story>
+            <div class="service-story-media">
+              <video class="service-story-video" muted loop playsinline preload="auto">
+                <source src="procedure.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="service-story-copy">
+              <div class="service-story-head">
+                <span class="service-story-index">02</span>
+                <h3>Awaryjne uruchomienie</h3>
+              </div>
+              <p>Diagnostyka akumulatora, szybkie uruchomienie i decyzja co dalej bez zgadywania.</p>
+            </div>
+          </article>
+
+          <article class="service-story reveal" data-service-story>
+            <div class="service-story-media">
+              <video class="service-story-video" muted loop playsinline preload="auto">
+                <source src="procedure.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="service-story-copy">
+              <div class="service-story-head">
+                <span class="service-story-index">03</span>
+                <h3>Naprawa na miejscu</h3>
+              </div>
+              <p>Typowe awarie usuwamy bez holowania. Oszczędzasz czas i nie tracisz dnia.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="jak-dzialamy" class="process section-gap tone-cinder">
+      <div class="container process-grid">
+        <div class="process-head reveal">
+          <h2 class="section-title">Trzy kroki i wracasz na drogę.</h2>
+          <p class="section-lead">Jasny proces, stały kontakt i pełna kontrola kosztu przed startem pracy.</p>
+        </div>
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="step-index">01</span>
+            <h3>Zgłoszenie i lokalizacja</h3>
+            <p>Odbieramy natychmiast i potwierdzamy lokalizację. Bez formularzy i bez czekania.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step-index">02</span>
+            <h3>Dojazd najbliższej ekipy</h3>
+            <p>Wysyłamy zespół z odpowiednim sprzętem i podajemy realny czas przyjazdu.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step-index">03</span>
+            <h3>Naprawa lub transport</h3>
+            <p>Działamy na miejscu albo holujemy. Każdy wariant potwierdzamy przed rozpoczęciem.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="opinie" class="reviews section-gap tone-steel">
+      <div class="container">
+        <h2 class="section-title reveal">Kierowcy wracają do nas, gdy liczy się czas.</h2>
+        <div class="reviews-carousel reveal" tabindex="0" aria-label="Karuzela opinii klientów">
+          <div class="reviews-track">
+            <div class="reviews-set">
+              <article class="quote">
+                <p>"Złapałam awarię na obwodnicy. Zespół był po 14 minutach i wszystko załatwili na miejscu."</p>
+                <p class="quote-author">- Marta B., Warszawa</p>
+              </article>
+              <article class="quote">
+                <p>"Mieli jasną wycenę od razu przez telefon. Zero niespodzianek i bardzo sprawna obsługa."</p>
+                <p class="quote-author">- Tomasz K., Poznań</p>
+              </article>
+              <article class="quote">
+                <p>"Brak paliwa późnym wieczorem. Dowieźli paliwo i sprawdzili auto zanim odjechali."</p>
+                <p class="quote-author">- Anna L., Wrocław</p>
+              </article>
+              <article class="quote">
+                <p>"Holowanie po stłuczce poszło szybko i bez stresu. Auto trafiło prosto do warsztatu."</p>
+                <p class="quote-author">- Piotr S., Łódź</p>
+              </article>
+              <article class="quote">
+                <p>"Pomogli z rozładowanym akumulatorem na parkingu pod centrum handlowym. Konkret i spokój."</p>
+                <p class="quote-author">- Karolina M., Gdańsk</p>
+              </article>
+              <article class="quote">
+                <p>"Wymiana koła na trasie zajęła im mniej niż pół godziny. Dokładnie tak to powinno działać."</p>
+                <p class="quote-author">- Michał D., Kraków</p>
+              </article>
+              <article class="quote">
+                <p>"Jasne zasady, szybki dojazd i bezpośredni kontakt z ekipą. Bardzo dobra robota."</p>
+                <p class="quote-author">- Ewa R., Katowice</p>
+              </article>
+              <article class="quote">
+                <p>"Auto nie odpalało po nocnym postoju. Na miejscu rozwiązali temat bez holowania."</p>
+                <p class="quote-author">- Paweł T., Szczecin</p>
+              </article>
+              <article class="quote">
+                <p>"Najbardziej cenię to, że od razu wiedziałam ile to będzie kosztować i ile poczekać."</p>
+                <p class="quote-author">- Monika P., Bydgoszcz</p>
+              </article>
+              <article class="quote">
+                <p>"Przyjechali punktualnie, zabezpieczyli auto i ogarnęli transport bez zbędnych pytań."</p>
+                <p class="quote-author">- Jakub W., Poznań</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="faq section-gap tone-ash">
+      <div class="container faq-grid">
+        <div class="faq-head reveal">
+          <h2 class="section-title faq-title">FAQ</h2>
+          <p class="section-lead faq-lead">Najczęściej zadawane pytania. Kliknij pytanie, żeby rozwinąć odpowiedź.</p>
+        </div>
+        <div class="faq-items reveal">
+          <details class="faq-item">
+            <summary>Ile kosztuje interwencja?</summary>
+            <div class="faq-content">
+              <p>Koszt zależy od rodzaju awarii i odległości. Zawsze potwierdzamy widełki przed wyjazdem ekipy.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Czy działacie poza dużymi miastami?</summary>
+            <div class="faq-content">
+              <p>Tak. Obsługujemy trasy krajowe, autostrady oraz miejscowości podmiejskie.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Czy mogę zapłacić kartą?</summary>
+            <div class="faq-content">
+              <p>Tak. Akceptujemy kartę, BLIK i przelew.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta section-gap tone-carbon">
+      <div class="container cta-box reveal">
+        <h2>Masz awarię teraz?</h2>
+        <p>Dyspozytor odbiera od razu i wysyła ekipę do Twojej lokalizacji.</p>
+        <a href="tel:+48123456789" class="btn btn-primary">Zadzwoń teraz</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer tone-obsidian">
+    <div class="container footer-grid">
+      <div>
+        <p class="brand">VeloRescue</p>
+        <p>Pomoc drogowa 24/7 na terenie całej Polski.</p>
+      </div>
+      <div>
+        <h3>Kontakt</h3>
+        <a href="tel:+48123456789">+48 123 456 789</a>
+        <a href="mailto:kontakt@velorescue.pl">kontakt@velorescue.pl</a>
+      </div>
+      <div>
+        <h3>Nawigacja</h3>
+        <a href="#uslugi">Usługi</a>
+        <a href="#jak-dzialamy">Jak działamy</a>
+        <a href="#faq">FAQ</a>
+        <a href="privacy.html">Polityka prywatności</a>
+        <a href="terms.html">Regulamin</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
