@@ -2,6 +2,20 @@
   const root = document.documentElement;
   const themeToggle = document.getElementById('theme-toggle');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+  const mobileViewport = window.matchMedia('(max-width: 720px)').matches;
+
+  function forceMobileHeadingVisibility() {
+    if (!(coarsePointer || mobileViewport)) {
+      return;
+    }
+
+    document.querySelectorAll('.section-title, .hero-copy h1').forEach(function (heading) {
+      heading.style.opacity = '1';
+      heading.style.transform = 'none';
+      heading.style.clipPath = 'none';
+    });
+  }
 
   function setTheme(theme) {
     if (theme === 'dark') {
@@ -220,6 +234,7 @@
 
   setupActiveNavigation();
   const updateToneFlow = setupSectionToneFlow();
+  forceMobileHeadingVisibility();
 
   if (reducedMotion) {
     revealItems.forEach(function (item) {
@@ -313,31 +328,35 @@
       observer.observe(item);
     });
 
-    // Fallback clip reveal for headings without GSAP.
-    document.querySelectorAll('.hero-copy h1, .section-title').forEach(function (heading, index) {
-      heading.style.opacity = '0';
-      heading.style.transform = 'translateY(20px)';
-      heading.style.clipPath = 'inset(0 100% 0 0)';
-      heading.style.transition = 'clip-path 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease';
-      heading.style.transitionDelay = `${Math.min(index * 0.08, 0.36)}s`;
+    // Keep headings always visible on mobile; use clip reveal only on larger screens.
+    if (coarsePointer || mobileViewport) {
+      forceMobileHeadingVisibility();
+    } else {
+      document.querySelectorAll('.hero-copy h1, .section-title').forEach(function (heading, index) {
+        heading.style.opacity = '0';
+        heading.style.transform = 'translateY(20px)';
+        heading.style.clipPath = 'inset(0 100% 0 0)';
+        heading.style.transition = 'clip-path 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease';
+        heading.style.transitionDelay = `${Math.min(index * 0.08, 0.36)}s`;
 
-      const headingObserver = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            if (!entry.isIntersecting) {
-              return;
-            }
-            heading.style.opacity = '1';
-            heading.style.transform = 'translateY(0)';
-            heading.style.clipPath = 'inset(0 0 0 0)';
-            headingObserver.unobserve(entry.target);
-          });
-        },
-        { threshold: 0.2, rootMargin: '0px 0px -10% 0px' }
-      );
+        const headingObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (!entry.isIntersecting) {
+                return;
+              }
+              heading.style.opacity = '1';
+              heading.style.transform = 'translateY(0)';
+              heading.style.clipPath = 'inset(0 0 0 0)';
+              headingObserver.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.2, rootMargin: '0px 0px -10% 0px' }
+        );
 
-      headingObserver.observe(heading);
-    });
+        headingObserver.observe(heading);
+      });
+    }
 
     // Lightweight parallax fallback for hero and media blocks.
     const parallaxItems = document.querySelectorAll('.hero-media, .tile-media');
@@ -438,33 +457,121 @@
     });
   });
 
-  // Services cards: video stays paused until hover, then plays like a motion tile.
-  document.querySelectorAll('[data-service-story]').forEach(function (story) {
-    const video = story.querySelector('.service-story-video');
-    if (!video) {
-      return;
-    }
+  // Services cards: mobile plays in viewport center; desktop keeps hover/focus behavior.
+  const serviceStories = Array.from(document.querySelectorAll('[data-service-story]')).map(function (story) {
+    return {
+      story: story,
+      video: story.querySelector('.service-story-video')
+    };
+  }).filter(function (entry) {
+    return entry.video;
+  });
 
-    video.pause();
-    video.currentTime = 0;
+  if (serviceStories.length) {
+    serviceStories.forEach(function (entry) {
+      entry.video.pause();
+      entry.video.currentTime = 0;
+    });
 
-    function playStoryVideo() {
-      story.classList.add('is-playing');
-      video.play().catch(function () {
-        // Ignore autoplay restrictions if the browser blocks the first play.
+    if (coarsePointer || mobileViewport) {
+      let activeStory = null;
+      let rafId = 0;
+
+      function playStory(entry) {
+        if (activeStory && activeStory !== entry) {
+          activeStory.story.classList.remove('is-playing');
+          activeStory.video.pause();
+        }
+
+        activeStory = entry;
+        entry.story.classList.add('is-playing');
+        entry.video.play().catch(function () {
+          // Ignore autoplay restrictions if the browser blocks the first play.
+        });
+      }
+
+      function stopStory(entry) {
+        entry.story.classList.remove('is-playing');
+        entry.video.pause();
+        if (activeStory === entry) {
+          activeStory = null;
+        }
+      }
+
+      function updateStoryPlayback() {
+        const viewportHeight = window.innerHeight || 1;
+        const centerStart = viewportHeight * 0.38;
+        const centerEnd = viewportHeight * 0.62;
+        let nextActive = null;
+        let nextActiveCenterY = -Infinity;
+
+        serviceStories.forEach(function (entry) {
+          const rect = entry.story.getBoundingClientRect();
+          const centerY = rect.top + rect.height * 0.5;
+          const isVisible = rect.bottom > 0 && rect.top < viewportHeight;
+          const reachedTop = rect.top <= 0;
+          const isCentered = centerY >= centerStart && centerY <= centerEnd;
+
+          if (!isVisible || reachedTop) {
+            stopStory(entry);
+            return;
+          }
+
+          if (isCentered) {
+            if (centerY >= nextActiveCenterY) {
+              nextActive = entry;
+              nextActiveCenterY = centerY;
+            }
+            return;
+          }
+
+          if (!isCentered) {
+            stopStory(entry);
+          }
+        });
+
+        if (nextActive) {
+          playStory(nextActive);
+        } else if (activeStory) {
+          stopStory(activeStory);
+        }
+      }
+
+      function schedulePlaybackUpdate() {
+        if (rafId) {
+          return;
+        }
+
+        rafId = requestAnimationFrame(function () {
+          rafId = 0;
+          updateStoryPlayback();
+        });
+      }
+
+      window.addEventListener('scroll', schedulePlaybackUpdate, { passive: true });
+      window.addEventListener('resize', schedulePlaybackUpdate);
+      updateStoryPlayback();
+    } else {
+      serviceStories.forEach(function (entry) {
+        function playStoryVideo() {
+          entry.story.classList.add('is-playing');
+          entry.video.play().catch(function () {
+            // Ignore autoplay restrictions if the browser blocks the first play.
+          });
+        }
+
+        function stopStoryVideo() {
+          entry.story.classList.remove('is-playing');
+          entry.video.pause();
+        }
+
+        entry.story.addEventListener('mouseenter', playStoryVideo);
+        entry.story.addEventListener('mouseleave', stopStoryVideo);
+        entry.story.addEventListener('focusin', playStoryVideo);
+        entry.story.addEventListener('focusout', stopStoryVideo);
       });
     }
-
-    function stopStoryVideo() {
-      story.classList.remove('is-playing');
-      video.pause();
-    }
-
-    story.addEventListener('mouseenter', playStoryVideo);
-    story.addEventListener('mouseleave', stopStoryVideo);
-    story.addEventListener('focusin', playStoryVideo);
-    story.addEventListener('focusout', stopStoryVideo);
-  });
+  }
 
   const reviewsTrack = document.querySelector('.reviews-track');
   const reviewsSet = document.querySelector('.reviews-set');
@@ -609,40 +716,50 @@
   });
 
   // Fade-in + slide-up for reveal elements, once only.
-  gsap.set('.reveal', { autoAlpha: 0, y: 34 });
-  ScrollTrigger.batch('.reveal', {
-    once: true,
-    start: 'top 86%',
-    onEnter: function (batch) {
-      gsap.to(batch, {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.9,
-        stagger: 0.12,
-        ease: 'power3.out'
-      });
-    }
-  });
+  const revealSelector = coarsePointer || mobileViewport
+    ? '.reveal:not(.section-title):not(.hero-copy h1)'
+    : '.reveal';
 
-  // Clip-path reveal for key headings.
-  const headingTargets = document.querySelectorAll('.hero-copy h1, .section-title');
-  headingTargets.forEach(function (heading) {
-    gsap.fromTo(
-      heading,
-      { clipPath: 'inset(0 100% 0 0)', y: 22 },
-      {
-        clipPath: 'inset(0 0% 0 0)',
-        y: 0,
-        duration: 1.0,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: heading,
-          start: 'top 88%',
-          once: true
-        }
+  if (document.querySelector(revealSelector)) {
+    gsap.set(revealSelector, { autoAlpha: 0, y: 34 });
+    ScrollTrigger.batch(revealSelector, {
+      once: true,
+      start: 'top 86%',
+      onEnter: function (batch) {
+        gsap.to(batch, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.9,
+          stagger: 0.12,
+          ease: 'power3.out'
+        });
       }
-    );
-  });
+    });
+  }
+
+  // Keep headings static on mobile; clip reveal remains on desktop.
+  if (coarsePointer || mobileViewport) {
+    forceMobileHeadingVisibility();
+  } else {
+    const headingTargets = document.querySelectorAll('.hero-copy h1, .section-title');
+    headingTargets.forEach(function (heading) {
+      gsap.fromTo(
+        heading,
+        { clipPath: 'inset(0 100% 0 0)', y: 22 },
+        {
+          clipPath: 'inset(0 0% 0 0)',
+          y: 0,
+          duration: 1.0,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: heading,
+            start: 'top 88%',
+            once: true
+          }
+        }
+      );
+    });
+  }
 
   // Stagger cards, icons and list elements.
   [
