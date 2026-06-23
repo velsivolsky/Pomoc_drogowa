@@ -1300,6 +1300,8 @@ summary:focus-visible {
 .site-footer a {
   display: block;
   margin-top: 0.4rem;
+  color: var(--text-muted);
+  text-decoration: none;
 }
 
 .reveal {
