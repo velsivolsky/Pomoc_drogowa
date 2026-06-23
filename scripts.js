@@ -2,18 +2,20 @@
   const root = document.documentElement;
   const themeToggle = document.getElementById('theme-toggle');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
-  const mobileViewport = window.matchMedia('(max-width: 720px)').matches;
+
+  function isMobile() {
+    return window.innerWidth <= 720 || window.matchMedia('(pointer: coarse)').matches;
+  }
 
   function forceMobileHeadingVisibility() {
-    if (!(coarsePointer || mobileViewport)) {
+    if (!isMobile()) {
       return;
     }
 
     document.querySelectorAll('.section-title, .hero-copy h1').forEach(function (heading) {
-      heading.style.opacity = '1';
-      heading.style.transform = 'none';
-      heading.style.clipPath = 'none';
+      heading.style.removeProperty('opacity');
+      heading.style.removeProperty('transform');
+      heading.style.removeProperty('clip-path');
     });
   }
 
@@ -234,7 +236,14 @@
 
   setupActiveNavigation();
   const updateToneFlow = setupSectionToneFlow();
-  forceMobileHeadingVisibility();
+  if (isMobile()) {
+    forceMobileHeadingVisibility();
+  }
+  window.addEventListener('resize', function () {
+    if (isMobile()) {
+      forceMobileHeadingVisibility();
+    }
+  });
 
   if (reducedMotion) {
     revealItems.forEach(function (item) {
@@ -329,7 +338,7 @@
     });
 
     // Keep headings always visible on mobile; use clip reveal only on larger screens.
-    if (coarsePointer || mobileViewport) {
+    if (isMobile()) {
       forceMobileHeadingVisibility();
     } else {
       document.querySelectorAll('.hero-copy h1, .section-title').forEach(function (heading, index) {
@@ -473,7 +482,7 @@
       entry.video.currentTime = 0;
     });
 
-    if (coarsePointer || mobileViewport) {
+    if (isMobile()) {
       let activeStory = null;
       let rafId = 0;
 
@@ -500,8 +509,8 @@
 
       function updateStoryPlayback() {
         const viewportHeight = window.innerHeight || 1;
-        const centerStart = viewportHeight * 0.38;
-        const centerEnd = viewportHeight * 0.62;
+        const centerStart = viewportHeight * 0.3;
+        const centerEnd = viewportHeight * 0.7;
         let nextActive = null;
         let nextActiveCenterY = -Infinity;
 
@@ -509,8 +518,8 @@
           const rect = entry.story.getBoundingClientRect();
           const centerY = rect.top + rect.height * 0.5;
           const isVisible = rect.bottom > 0 && rect.top < viewportHeight;
-          const reachedTop = rect.top <= 0;
-          const isCentered = centerY >= centerStart && centerY <= centerEnd;
+          const reachedTop = rect.top < 0;
+          const isCentered = centerY >= centerStart && centerY <= centerEnd && isVisible;
 
           if (!isVisible || reachedTop) {
             stopStory(entry);
@@ -522,10 +531,7 @@
               nextActive = entry;
               nextActiveCenterY = centerY;
             }
-            return;
-          }
-
-          if (!isCentered) {
+          } else {
             stopStory(entry);
           }
         });
@@ -649,7 +655,7 @@
   try {
     await withTimeout(
       Promise.all([
-        loadScript('https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js'),
+        loadScript('./lenis.min.js'),
         loadScript('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js'),
         loadScript('https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js')
       ]),
@@ -716,13 +722,24 @@
   });
 
   // Fade-in + slide-up for reveal elements, once only.
-  const revealSelector = coarsePointer || mobileViewport
-    ? '.reveal:not(.section-title):not(.hero-copy h1)'
-    : '.reveal';
-
-  if (document.querySelector(revealSelector)) {
-    gsap.set(revealSelector, { autoAlpha: 0, y: 34 });
-    ScrollTrigger.batch(revealSelector, {
+  if (isMobile()) {
+    gsap.set('.reveal', { autoAlpha: 0, y: 34 });
+    ScrollTrigger.batch('.reveal', {
+      once: true,
+      start: 'top 86%',
+      onEnter: function (batch) {
+        gsap.to(batch, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.9,
+          stagger: 0.12,
+          ease: 'power3.out'
+        });
+      }
+    });
+  } else {
+    gsap.set('.reveal', { autoAlpha: 0, y: 34 });
+    ScrollTrigger.batch('.reveal', {
       once: true,
       start: 'top 86%',
       onEnter: function (batch) {
@@ -738,7 +755,7 @@
   }
 
   // Keep headings static on mobile; clip reveal remains on desktop.
-  if (coarsePointer || mobileViewport) {
+  if (isMobile()) {
     forceMobileHeadingVisibility();
   } else {
     const headingTargets = document.querySelectorAll('.hero-copy h1, .section-title');
