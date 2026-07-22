@@ -367,17 +367,16 @@
       });
     }
 
-    // Lightweight parallax fallback for hero and media blocks.
-    const parallaxItems = document.querySelectorAll('.hero-media, .tile-media');
+    // Lightweight parallax fallback only for non-hero media to avoid exposing hero background edges.
+    const parallaxItems = document.querySelectorAll('.tile-media');
     let ticking = false;
     function updateParallax() {
       const viewportHeight = window.innerHeight || 1;
-      parallaxItems.forEach(function (el, idx) {
+      parallaxItems.forEach(function (el) {
         const rect = el.getBoundingClientRect();
         const center = rect.top + rect.height * 0.5;
         const ratio = (center - viewportHeight * 0.5) / viewportHeight;
-        const strength = el.classList.contains('hero-media') ? 18 : 10;
-        const y = -ratio * strength;
+        const y = -ratio * 10;
         el.style.transform = `translateY(${y.toFixed(2)}px)`;
       });
       ticking = false;
@@ -706,10 +705,10 @@
   // Map existing sections to requested experience zones.
   const sectionMap = {
     hero: document.querySelector('.hero'),
-    about: document.querySelector('#jak-dzialamy'),
-    services: document.querySelector('#uslugi'),
+    about: document.querySelector('#flota'),
+    services: document.querySelector('#cennik'),
     gallery: document.querySelector('.trusted'),
-    testimonials: document.querySelector('#opinie'),
+    testimonials: document.querySelector('#warunki'),
     contact: document.querySelector('.cta')
   };
 
@@ -806,8 +805,8 @@
     });
   });
 
-  // Parallax and scale-in on imagery.
-  const mediaItems = document.querySelectorAll('.hero-media, .tile-media');
+  // Parallax and scale-in on non-hero imagery.
+  const mediaItems = document.querySelectorAll('.tile-media');
   mediaItems.forEach(function (media) {
     gsap.fromTo(
       media,
@@ -862,8 +861,9 @@
 
   // Sticky impression via ScrollTrigger pinning process heading on desktop.
   const processHead = document.querySelector('.process-head');
-  const processSection = document.querySelector('#jak-dzialamy');
-  if (processHead && processSection && window.innerWidth > 1100) {
+  const processSection = document.querySelector('#flota');
+  const processSectionTallEnough = processSection && processSection.offsetHeight > 980;
+  if (processHead && processSection && processSectionTallEnough && window.innerWidth > 1100) {
     ScrollTrigger.create({
       trigger: processSection,
       start: 'top top+=90',
