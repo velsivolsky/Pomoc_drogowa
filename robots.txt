@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# AI/LLM summary file
+# Some crawlers may use this path.
+LLM: /llms.txt

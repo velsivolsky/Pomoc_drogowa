@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wynajem Autolawet Gdańsk Matarnia - Kat. B | 601 659 781</title>
   <meta name="description" content="Wynajem autolawet w Gdańsku (Matarnia). Mercedes Sprinter i VW Crafter, cennik od 150 zł, odbiór 8:00-22:00, 7 dni w tygodniu.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="theme-color" content="#262c33">
+  <meta property="og:locale" content="pl_PL">
   <meta property="og:title" content="Wynajem autolawet Gdańsk - kat. B">
   <meta property="og:description" content="Autolaweta Mercedes Sprinter i VW Crafter. Jasny cennik, szybki odbiór, Gdańsk Matarnia.">
   <meta property="og:type" content="website">
@@ -17,10 +20,24 @@
       "@context": "https://schema.org",
       "@graph": [
         {
+          "@type": "WebSite",
+          "name": "Wynajem Autolawet Gdańsk",
+          "inLanguage": "pl-PL"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Wynajem autolawet Gdańsk Matarnia",
+          "description": "Wynajem autolawet w Gdańsku na prawo jazdy kat. B.",
+          "inLanguage": "pl-PL"
+        },
+        {
           "@type": "LocalBusiness",
+          "@id": "#localbusiness",
           "name": "Wynajem Autolawet Gdańsk",
           "image": "foto1.jpg",
           "telephone": "+48 601 659 781",
+          "currenciesAccepted": "PLN",
+          "paymentAccepted": "Gotówka, przelew",
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "ul. Harfowa 32",
@@ -50,7 +67,52 @@
             "Trójmiasto",
             "Polska"
           ],
-          "priceRange": "150-300 PLN"
+          "priceRange": "150-300 PLN",
+          "knowsAbout": [
+            "wynajem autolawet",
+            "transport samochodów",
+            "autolaweta kat. B",
+            "wynajem autolawet Gdańsk"
+          ]
+        },
+        {
+          "@type": "Service",
+          "name": "Wynajem autolawet",
+          "provider": {
+            "@id": "#localbusiness"
+          },
+          "serviceType": "Wynajem autolawet i transport samochodów",
+          "areaServed": [
+            "Gdańsk",
+            "Gdynia",
+            "Sopot",
+            "Trójmiasto",
+            "Polska"
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Cennik wynajmu autolawety",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "name": "Wynajem autolawety 6 godzin",
+                "price": "150",
+                "priceCurrency": "PLN"
+              },
+              {
+                "@type": "Offer",
+                "name": "Wynajem autolawety 12 godzin",
+                "price": "200",
+                "priceCurrency": "PLN"
+              },
+              {
+                "@type": "Offer",
+                "name": "Wynajem autolawety 24 godziny",
+                "price": "300",
+                "priceCurrency": "PLN"
+              }
+            ]
+          }
         },
         {
           "@type": "FAQPage",
