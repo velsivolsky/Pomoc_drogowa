@@ -1,14 +1,14 @@
 :root {
-  --bg: #262c33;
-  --page-bg: #262c33;
-  --surface: #323941;
-  --text: #eef2f6;
-  --text-muted: #aab3bd;
-  --line: #48525e;
-  --accent: #ef6c1f;
-  --accent-strong: #d45711;
-  --accent-soft: #ff8c3b;
-  --shadow: 0 18px 44px rgba(0, 0, 0, 0.38);
+  --bg: #f4eee6;
+  --page-bg: #f4eee6;
+  --surface: #fffaf4;
+  --text: #22262b;
+  --text-muted: #1f2328;
+  --line: #d7cec3;
+  --accent: #c63a2d;
+  --accent-strong: #a92f24;
+  --accent-soft: #dd6b5d;
+  --shadow: 0 18px 44px rgba(66, 39, 29, 0.12);
   --radius-card: 12px;
   --radius-pill: 12px;
 }
@@ -72,14 +72,21 @@ body {
   font-family: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
   background-color: var(--page-bg);
   background-image:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 45%),
-    radial-gradient(circle at 12% -8%, rgba(239, 108, 31, 0.26), transparent 32%),
-    radial-gradient(circle at 88% 12%, rgba(255, 140, 59, 0.14), transparent 34%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.7), transparent 45%),
+    radial-gradient(circle at 12% -8%, rgba(198, 58, 45, 0.12), transparent 30%),
+    radial-gradient(circle at 88% 12%, rgba(221, 107, 93, 0.1), transparent 34%);
   color: var(--text);
   line-height: 1.5;
   min-height: 100dvh;
   position: relative;
   transition: background-color 0.18s linear, color 0.3s ease;
+}
+
+:root[data-theme="dark"] body {
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 45%),
+    radial-gradient(circle at 12% -8%, rgba(239, 108, 31, 0.26), transparent 32%),
+    radial-gradient(circle at 88% 12%, rgba(255, 140, 59, 0.14), transparent 34%);
 }
 
 body::before {
@@ -88,12 +95,19 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: 1;
+  opacity: 0.05;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(90, 64, 51, 0.16) 0 1px, transparent 1px),
+    radial-gradient(circle at 75% 60%, rgba(90, 64, 51, 0.12) 0 1px, transparent 1px);
+  background-size: 3px 3px, 4px 4px;
+  mix-blend-mode: soft-light;
+}
+
+:root[data-theme="dark"] body::before {
   opacity: 0.08;
   background-image:
     radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.25) 0 1px, transparent 1px),
     radial-gradient(circle at 75% 60%, rgba(255, 255, 255, 0.22) 0 1px, transparent 1px);
-  background-size: 3px 3px, 4px 4px;
-  mix-blend-mode: soft-light;
 }
 
 .page {
@@ -103,27 +117,27 @@ body::before {
 }
 
 .tone-gunmetal {
-  --section-tone: #262c33;
+  --section-tone: #f7f1ea;
 }
 
 .tone-steel {
-  --section-tone: #2f363f;
+  --section-tone: #f2ece4;
 }
 
 .tone-carbon {
-  --section-tone: #292f37;
+  --section-tone: #f8f3ec;
 }
 
 .tone-cinder {
-  --section-tone: #20262d;
+  --section-tone: #efe8df;
 }
 
 .tone-ash {
-  --section-tone: #343b44;
+  --section-tone: #f5efe7;
 }
 
 .tone-obsidian {
-  --section-tone: #1a1f25;
+  --section-tone: #ede6dc;
 }
 
 :root[data-theme="dark"] .tone-gunmetal {
@@ -198,7 +212,7 @@ body::before {
   width: 100%;
   height: 3px;
   z-index: 120;
-  background: rgba(255, 255, 255, 0.08);
+  background: color-mix(in srgb, var(--line) 52%, transparent);
   transform-origin: left center;
 }
 
@@ -399,7 +413,7 @@ summary:focus-visible {
   border: 0;
   border-radius: 0;
   padding: 0;
-  background: #11161c;
+  background: color-mix(in srgb, var(--surface) 88%, #efe5da 12%);
   box-shadow: none;
   overflow: hidden;
   isolation: isolate;
@@ -410,7 +424,7 @@ summary:focus-visible {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(100deg, rgba(12, 15, 20, 0.94) 0%, rgba(12, 15, 20, 0.85) 30%, rgba(12, 15, 20, 0.42) 58%, rgba(12, 15, 20, 0.82) 100%);
+  background: linear-gradient(100deg, rgba(250, 244, 237, 0.94) 0%, rgba(250, 244, 237, 0.88) 30%, rgba(250, 244, 237, 0.34) 58%, rgba(250, 244, 237, 0.82) 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -420,8 +434,8 @@ summary:focus-visible {
   position: absolute;
   inset: -30% -10%;
   background:
-    radial-gradient(circle at 72% 48%, rgba(239, 108, 31, 0.3), transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(255, 153, 77, 0.14), transparent 38%);
+    radial-gradient(circle at 72% 48%, rgba(198, 58, 45, 0.24), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(221, 107, 93, 0.14), transparent 38%);
   mix-blend-mode: screen;
   animation: heroGlowShift 8s ease-in-out infinite alternate;
   pointer-events: none;
@@ -445,6 +459,32 @@ summary:focus-visible {
   padding-bottom: clamp(2.2rem, 6vh, 4.2rem);
 }
 
+:root:not([data-theme="dark"]) .hero-copy {
+  display: inline-grid;
+  justify-items: start;
+  width: fit-content;
+  max-width: min(34rem, 100%);
+  padding: clamp(0.85rem, 2vw, 1.15rem);
+  border-radius: 22px;
+  background: linear-gradient(145deg, rgba(255, 250, 244, 0.72), rgba(244, 238, 230, 0.5));
+  border: 1px solid color-mix(in srgb, var(--line) 52%, transparent);
+  backdrop-filter: blur(8px) saturate(1.01);
+  box-shadow: 0 12px 26px rgba(66, 39, 29, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+:root[data-theme="dark"] .hero-copy {
+  display: inline-grid;
+  justify-items: start;
+  width: fit-content;
+  max-width: min(34rem, 100%);
+  padding: clamp(0.85rem, 2vw, 1.15rem);
+  border-radius: 22px;
+  background: linear-gradient(145deg, rgba(22, 28, 36, 0.72), rgba(18, 24, 32, 0.58));
+  border: 1px solid color-mix(in srgb, var(--line) 45%, transparent);
+  backdrop-filter: blur(12px) saturate(1.1);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
 .kicker {
   display: inline-block;
   font-size: 0.76rem;
@@ -461,15 +501,31 @@ summary:focus-visible {
   letter-spacing: -0.02em;
   max-width: 11ch;
   text-wrap: balance;
-  color: #f6f8fc;
-  text-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  color: #22262b;
+  text-shadow: none;
+}
+
+:root:not([data-theme="dark"]) .hero-copy,
+:root:not([data-theme="dark"]) .hero-copy .kicker,
+:root:not([data-theme="dark"]) .hero-copy .hero-subtext,
+:root:not([data-theme="dark"]) .hero-copy .hero-meta {
+  color: #22262b;
+}
+
+:root:not([data-theme="dark"]) .hero-copy .hero-subtext,
+:root:not([data-theme="dark"]) .hero-copy .hero-meta {
+  color: #1b1f24;
+}
+
+:root:not([data-theme="dark"]) .hero-copy .kicker {
+  opacity: 0.86;
 }
 
 .hero-subtext {
   margin-top: 1.2rem;
   margin-bottom: 1.7rem;
   font-size: clamp(0.95rem, 1.5vw, 1.08rem);
-  color: color-mix(in srgb, #c7d0da 88%, #ffffff 12%);
+  color: var(--text-muted);
   max-width: 56ch;
 }
 
@@ -485,9 +541,9 @@ summary:focus-visible {
   margin: 0;
   border-radius: 0;
   background:
-    linear-gradient(180deg, rgba(6, 8, 10, 0.08), rgba(6, 8, 10, 0.18)),
-    radial-gradient(circle at 78% 52%, rgba(239, 108, 31, 0.08), transparent 44%),
-    #171f28;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.36)),
+    radial-gradient(circle at 78% 52%, rgba(198, 58, 45, 0.08), transparent 44%),
+    #f0e9e0;
   will-change: transform, opacity;
   animation: heroFloat 8.5s ease-in-out infinite, heroFilmMove 18s linear infinite alternate;
 }
@@ -498,19 +554,58 @@ summary:focus-visible {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.88;
-  filter: contrast(1.04) saturate(0.92) brightness(0.88);
+  opacity: 0.94;
+  filter: contrast(1.04) saturate(0.92) brightness(1.02);
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
   border-radius: 0;
-  background:
-    linear-gradient(to top, rgba(10, 14, 20, 0.45) 0%, rgba(10, 14, 20, 0.2) 45%, rgba(10, 14, 20, 0.34) 100%),
-    linear-gradient(90deg, rgba(10, 14, 20, 0.43) 0%, rgba(10, 14, 20, 0.15) 56%, rgba(10, 14, 20, 0.42) 100%);
+  background: linear-gradient(to top, rgba(28, 33, 40, 0.22) 0%, rgba(28, 33, 40, 0.07) 38%, transparent 70%);
   pointer-events: none;
 }
+
+:root[data-theme="dark"] .hero-overlay {
+  background: linear-gradient(to top, rgba(10, 14, 20, 0.52) 0%, rgba(10, 14, 20, 0.18) 40%, transparent 72%);
+}
+
+:root[data-theme="dark"] .hero-shell {
+  background: #11161c;
+}
+
+:root[data-theme="dark"] .hero-shell::before {
+  background: linear-gradient(100deg, rgba(12, 15, 20, 0.94) 0%, rgba(12, 15, 20, 0.85) 30%, rgba(12, 15, 20, 0.42) 58%, rgba(12, 15, 20, 0.82) 100%);
+}
+
+:root[data-theme="dark"] .hero-shell::after {
+  background:
+    radial-gradient(circle at 72% 48%, rgba(239, 108, 31, 0.3), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(255, 153, 77, 0.14), transparent 38%);
+}
+
+:root[data-theme="dark"] .hero-copy h1 {
+  color: #f6f8fc;
+  text-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+:root[data-theme="dark"] .hero-subtext {
+  color: color-mix(in srgb, #c7d0da 88%, #ffffff 12%);
+}
+
+:root[data-theme="dark"] .hero-media {
+  background:
+    linear-gradient(180deg, rgba(6, 8, 10, 0.08), rgba(6, 8, 10, 0.18)),
+    radial-gradient(circle at 78% 52%, rgba(239, 108, 31, 0.08), transparent 44%),
+    #171f28;
+}
+
+:root[data-theme="dark"] .hero-video {
+  opacity: 0.92;
+  filter: contrast(1.04) saturate(0.92) brightness(0.94);
+}
+
+/* dark hero-overlay — merged above */
 
 .hero-copy {
   max-width: 760px;
@@ -577,11 +672,12 @@ summary:focus-visible {
   min-height: 46px;
   width: 100%;
   padding: 0.2rem;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--line) 82%);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--accent) 12%, transparent);
   animation: iconBob 4.5s ease-in-out infinite;
-  transition: transform 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .brand-mark img {
@@ -600,6 +696,7 @@ summary:focus-visible {
 
 .brand-mark:hover {
   transform: translateY(-2px);
+  box-shadow: 0 14px 28px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
 .brand-mark:hover img {
@@ -607,7 +704,9 @@ summary:focus-visible {
 }
 
 :root[data-theme="dark"] .brand-mark {
-  background: transparent;
+  border-color: color-mix(in srgb, var(--accent-soft) 28%, var(--line) 72%);
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  box-shadow: 0 12px 26px color-mix(in srgb, var(--accent) 24%, transparent);
 }
 
 :root[data-theme="dark"] .brand-mark img {
@@ -694,10 +793,10 @@ summary:focus-visible {
 
 .service-story:hover {
   --lift: -6px;
-  background: #1f1b1a;
+  background: #fff5ef;
   border-color: color-mix(in srgb, var(--accent) 52%, transparent);
   box-shadow:
-    0 30px 56px rgba(0, 0, 0, 0.5),
+    0 30px 56px rgba(66, 39, 29, 0.16),
     0 0 0 1px color-mix(in srgb, var(--accent) 24%, transparent),
     0 0 48px color-mix(in srgb, var(--accent) 18%, transparent);
 }
@@ -713,7 +812,7 @@ summary:focus-visible {
   height: clamp(200px, 24vw, 280px);
   border-radius: 28px;
   overflow: hidden;
-  background: #0d1116;
+  background: #f3ece4;
 }
 
 .service-story-video {
@@ -761,7 +860,7 @@ summary:focus-visible {
 
 .service-story h3 {
   margin: 0;
-  color: #f8f9fb;
+  color: #22262b;
   font-size: clamp(1.6rem, 2.6vw, 3rem);
   line-height: 0.98;
   letter-spacing: -0.04em;
@@ -772,11 +871,31 @@ summary:focus-visible {
   margin: 0;
   grid-column: 3;
   align-self: stretch;
-  color: rgba(245, 247, 250, 0.84);
+  color: var(--text-muted);
   font-size: clamp(0.98rem, 1.35vw, 1.12rem);
   line-height: 1.55;
   max-width: none;
   padding: clamp(0.5rem, 1.5vw, 1rem) clamp(0.8rem, 2vw, 1.5rem) clamp(0.6rem, 1.8vw, 1.2rem) 0;
+}
+
+:root[data-theme="dark"] .service-story:hover {
+  background: #1f1b1a;
+  box-shadow:
+    0 30px 56px rgba(0, 0, 0, 0.5),
+    0 0 0 1px color-mix(in srgb, var(--accent) 24%, transparent),
+    0 0 48px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+:root[data-theme="dark"] .service-story-media {
+  background: #0d1116;
+}
+
+:root[data-theme="dark"] .service-story h3 {
+  color: #f8f9fb;
+}
+
+:root[data-theme="dark"] .service-story p {
+  color: rgba(245, 247, 250, 0.84);
 }
 
 .tile::after,
@@ -1340,28 +1459,6 @@ summary:focus-visible {
   align-self: start;
 }
 
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  pointer-events: none;
-  z-index: 220;
-  border: 1px solid color-mix(in srgb, var(--accent) 72%, #ffffff 28%);
-  background: color-mix(in srgb, var(--accent) 34%, transparent);
-  box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 52%, transparent);
-  transform: translate(-50%, -50%);
-  transition: width 0.25s ease, height 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
-}
-
-.custom-cursor.is-active {
-  width: 42px;
-  height: 42px;
-  background: color-mix(in srgb, var(--accent) 18%, transparent);
-}
-
 @media (max-width: 1100px) {
   .hero-grid,
   .process-grid,
@@ -1641,27 +1738,6 @@ summary:focus-visible {
   }
 }
 
-@media (pointer: fine) {
-  body.cursor-enhanced {
-    cursor: none;
-  }
-
-  body.cursor-enhanced a,
-  body.cursor-enhanced button,
-  body.cursor-enhanced summary,
-  body.cursor-enhanced .tile,
-  body.cursor-enhanced .step,
-  body.cursor-enhanced .quote {
-    cursor: none;
-  }
-}
-
-@media (pointer: coarse) {
-  .custom-cursor {
-    display: none;
-  }
-}
-
 @media (max-width: 720px) {
   .section-title,
   .hero-copy h1 {
@@ -1736,10 +1812,6 @@ summary:focus-visible {
     transition: none;
   }
 
-  .custom-cursor {
-    display: none;
-  }
-
   .btn {
     transform: none;
   }
@@ -1756,7 +1828,7 @@ summary:focus-visible {
 
 .hero-meta {
   margin: 0.9rem 0 0;
-  color: color-mix(in srgb, #d8dee6 84%, #ffffff 16%);
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
@@ -1765,19 +1837,27 @@ summary:focus-visible {
   font-size: clamp(0.78rem, 1.4vw, 1rem);
   font-weight: 600;
   letter-spacing: 0.02em;
-  border: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--line) 82%);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--accent) 12%, transparent);
   padding: 0.25rem 0.4rem;
 }
 
 .service-story-rate {
   display: grid;
   place-items: center;
-  color: color-mix(in srgb, var(--accent-soft) 70%, #ffffff 30%);
+  color: color-mix(in srgb, var(--accent) 72%, #4b1f18 28%);
   font-size: clamp(2.2rem, 5vw, 4rem);
   font-weight: 800;
   letter-spacing: -0.04em;
+  background:
+    radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 60%),
+    color-mix(in srgb, var(--surface) 86%, #f1e5db 14%);
+}
+
+:root[data-theme="dark"] .service-story-rate {
+  color: color-mix(in srgb, var(--accent-soft) 70%, #ffffff 30%);
   background:
     radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--accent) 25%, transparent), transparent 60%),
     #12161b;

@@ -23,7 +23,7 @@
     if (theme === 'dark') {
       root.setAttribute('data-theme', 'dark');
     } else {
-      root.removeAttribute('data-theme');
+      root.setAttribute('data-theme', 'light');
     }
 
     if (themeToggle) {
@@ -37,6 +37,8 @@
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'dark' || savedTheme === 'light') {
     setTheme(savedTheme);
+  } else {
+    setTheme('light');
   }
 
   if (themeToggle) {
@@ -393,44 +395,6 @@
     window.addEventListener('scroll', onScrollParallax, { passive: true });
     window.addEventListener('resize', onScrollParallax);
     onScrollParallax();
-  }
-
-  // Cursor/magnetic/tilt are library-agnostic and run in both GSAP and fallback modes.
-  const finePointer = window.matchMedia('(pointer: fine)').matches;
-  let cursor = null;
-  if (finePointer) {
-    document.body.classList.add('cursor-enhanced');
-    cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    document.body.appendChild(cursor);
-
-    let targetX = window.innerWidth * 0.5;
-    let targetY = window.innerHeight * 0.5;
-    let currentX = targetX;
-    let currentY = targetY;
-
-    window.addEventListener('mousemove', function (event) {
-      targetX = event.clientX;
-      targetY = event.clientY;
-    });
-
-    function tickCursor() {
-      currentX += (targetX - currentX) * 0.22;
-      currentY += (targetY - currentY) * 0.22;
-      cursor.style.left = `${currentX}px`;
-      cursor.style.top = `${currentY}px`;
-      requestAnimationFrame(tickCursor);
-    }
-    requestAnimationFrame(tickCursor);
-
-    document.querySelectorAll('a, button, summary, .tile, .step, .quote').forEach(function (el) {
-      el.addEventListener('mouseenter', function () {
-        cursor.classList.add('is-active');
-      });
-      el.addEventListener('mouseleave', function () {
-        cursor.classList.remove('is-active');
-      });
-    });
   }
 
   document.querySelectorAll('.btn').forEach(function (button) {
