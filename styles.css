@@ -487,19 +487,21 @@ summary:focus-visible {
 
 .kicker {
   display: inline-block;
-  font-size: 0.76rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: clamp(1.35rem, 3.2vw, 2.35rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: none;
   color: var(--text-muted);
-  margin: 0 0 1rem;
+  margin: 0 0 0.55rem;
 }
 
 .hero-copy h1 {
   margin: 0;
-  font-size: clamp(1.9rem, 4.6vw, 3.8rem);
-  line-height: 1.04;
-  letter-spacing: -0.02em;
-  max-width: 11ch;
+  font-size: clamp(1.05rem, 1.85vw, 1.5rem);
+  line-height: 1.35;
+  letter-spacing: 0;
+  max-width: 30ch;
+  font-weight: 600;
   text-wrap: balance;
   color: #22262b;
   text-shadow: none;
@@ -510,11 +512,6 @@ summary:focus-visible {
 :root:not([data-theme="dark"]) .hero-copy .hero-subtext,
 :root:not([data-theme="dark"]) .hero-copy .hero-meta {
   color: #22262b;
-}
-
-:root:not([data-theme="dark"]) .hero-copy .hero-subtext,
-:root:not([data-theme="dark"]) .hero-copy .hero-meta {
-  color: #1b1f24;
 }
 
 :root:not([data-theme="dark"]) .hero-copy .kicker {
@@ -555,7 +552,6 @@ summary:focus-visible {
   height: 100%;
   object-fit: cover;
   opacity: 0.94;
-  filter: contrast(1.04) saturate(0.92) brightness(1.02);
 }
 
 .hero-overlay {
@@ -1410,6 +1406,15 @@ summary:focus-visible {
   color: rgba(255, 255, 255, 0.92);
 }
 
+.contact-map {
+  display: block;
+  width: min(100%, 960px);
+  max-width: 100%;
+  height: clamp(280px, 45vw, 450px);
+  margin: 1rem auto 0;
+  border-radius: 12px;
+}
+
 .cta-box .btn-primary {
   background: #ffffff;
   color: #0e1724;
@@ -1598,8 +1603,8 @@ summary:focus-visible {
   }
 
   .hero-copy h1 {
-    max-width: 12ch;
-    font-size: clamp(1.7rem, 8vw, 2.7rem);
+    max-width: 30ch;
+    font-size: clamp(1rem, 4.3vw, 1.3rem);
   }
 
   .hero-shell {
@@ -1709,7 +1714,6 @@ summary:focus-visible {
     max-width: none;
     text-align: left;
     line-height: 1.02;
-    padding-right: 4.2rem;
   }
 
   .service-story p {
@@ -1897,7 +1901,7 @@ summary:focus-visible {
 .reviews-static .reviews-set {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
 }
 
