@@ -54,6 +54,117 @@
   const pageToneTargets = document.querySelectorAll('main > section, .site-footer');
   const themeMeta = document.querySelector('meta[name="theme-color"]');
 
+  const fleetCarouselModal = document.querySelector('[data-fleet-carousel-modal]');
+  const fleetCarouselOpeners = Array.from(document.querySelectorAll('[data-carousel-open]'));
+  const fleetCarouselCloseButtons = Array.from(document.querySelectorAll('[data-fleet-carousel-close]'));
+  const fleetCarouselPrev = document.querySelector('[data-fleet-carousel-prev]');
+  const fleetCarouselNext = document.querySelector('[data-fleet-carousel-next]');
+  const fleetCarouselImage = document.querySelector('[data-fleet-carousel-image]');
+  const fleetCarouselCaption = document.querySelector('[data-fleet-carousel-caption]');
+  const fleetCarouselSlides = [
+    { src: 'carousel/foto1.jpg', alt: 'Autolaweta Mercedes Sprinter - zdjęcie 1' },
+    { src: 'carousel/foto2.jpg', alt: 'Autolaweta VW Crafter - zdjęcie 2' },
+    { src: 'carousel/foto3.jpg', alt: 'Autolaweta - zdjęcie 3' },
+    { src: 'carousel/mercedes.JPG', alt: 'Mercedes Sprinter - flota' },
+    { src: 'carousel/vw.jpg', alt: 'VW Crafter - flota' }
+  ];
+
+  let fleetCarouselIndex = 0;
+  let fleetCarouselLastFocus = null;
+
+  function renderFleetCarouselSlide(index) {
+    if (!fleetCarouselImage || !fleetCarouselSlides.length) {
+      return;
+    }
+
+    fleetCarouselIndex = (index + fleetCarouselSlides.length) % fleetCarouselSlides.length;
+    const slide = fleetCarouselSlides[fleetCarouselIndex];
+    fleetCarouselImage.src = slide.src;
+    fleetCarouselImage.alt = slide.alt;
+    if (fleetCarouselCaption) {
+      fleetCarouselCaption.textContent = `${fleetCarouselIndex + 1} / ${fleetCarouselSlides.length}`;
+    }
+  }
+
+  function openFleetCarousel(startIndex) {
+    if (!fleetCarouselModal) {
+      return;
+    }
+
+    fleetCarouselLastFocus = document.activeElement;
+    renderFleetCarouselSlide(startIndex || 0);
+    fleetCarouselModal.classList.add('is-open');
+    fleetCarouselModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (fleetCarouselCloseButtons[0]) {
+      fleetCarouselCloseButtons[0].focus();
+    }
+  }
+
+  function closeFleetCarousel() {
+    if (!fleetCarouselModal) {
+      return;
+    }
+
+    fleetCarouselModal.classList.remove('is-open');
+    fleetCarouselModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (fleetCarouselLastFocus && typeof fleetCarouselLastFocus.focus === 'function') {
+      fleetCarouselLastFocus.focus();
+    }
+  }
+
+  if (fleetCarouselModal) {
+    fleetCarouselOpeners.forEach(function (opener) {
+      opener.addEventListener('click', function () {
+        openFleetCarousel(0);
+      });
+
+      opener.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openFleetCarousel(0);
+        }
+      });
+    });
+
+    fleetCarouselCloseButtons.forEach(function (closer) {
+      closer.addEventListener('click', closeFleetCarousel);
+    });
+
+    if (fleetCarouselPrev) {
+      fleetCarouselPrev.addEventListener('click', function () {
+        renderFleetCarouselSlide(fleetCarouselIndex - 1);
+      });
+    }
+
+    if (fleetCarouselNext) {
+      fleetCarouselNext.addEventListener('click', function () {
+        renderFleetCarouselSlide(fleetCarouselIndex + 1);
+      });
+    }
+
+    document.addEventListener('keydown', function (event) {
+      if (!fleetCarouselModal.classList.contains('is-open')) {
+        return;
+      }
+
+      if (event.key === 'Escape') {
+        closeFleetCarousel();
+        return;
+      }
+
+      if (event.key === 'ArrowLeft') {
+        renderFleetCarouselSlide(fleetCarouselIndex - 1);
+        return;
+      }
+
+      if (event.key === 'ArrowRight') {
+        renderFleetCarouselSlide(fleetCarouselIndex + 1);
+      }
+    });
+  }
+
   function setPageTone(color) {
     if (!color) {
       return;
