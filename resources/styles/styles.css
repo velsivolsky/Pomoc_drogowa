@@ -3199,6 +3199,21 @@ summary:focus-visible {
   background: color-mix(in srgb, var(--accent) 11%, var(--surface) 89%);
 }
 
+.selector-result[data-trailer] {
+  background-image: linear-gradient(135deg, rgba(16, 19, 24, 0.7), rgba(16, 19, 24, 0.46)), var(--trailer-image);
+  background-position: center;
+  background-size: cover;
+  border-left-color: var(--accent);
+}
+
+.selector-result[data-trailer] .selector-result-label,
+.selector-result[data-trailer] .selector-result-main strong,
+.selector-result[data-trailer] .selector-result-main span,
+.selector-result[data-trailer] > p:not(.selector-result-label) {
+  color: #f4f7fb;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.62);
+}
+
 .selector-result-label {
   margin: 0 0 0.4rem;
   color: var(--text-muted);

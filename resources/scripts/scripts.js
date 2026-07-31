@@ -457,6 +457,8 @@
 
       const trailersValid = data.trailers.every(function (trailer) {
         return typeof trailer.name === 'string'
+          && typeof trailer.image === 'string'
+          && trailer.image.length > 0
           && Number.isFinite(trailer.maxPayloadKg)
           && Number.isFinite(trailer.platformLengthM)
           && Number.isFinite(trailer.platformWidthM);
@@ -490,6 +492,8 @@
     } catch (error) {
       form.setAttribute('aria-busy', 'false');
       result.dataset.state = 'error';
+      delete result.dataset.trailer;
+      result.style.removeProperty('--trailer-image');
       truckOutput.textContent = 'Konfigurator niedostępny';
       planOutput.textContent = '';
       noteOutput.textContent = 'Nie udało się wczytać danych. Odśwież stronę lub zadzwoń, aby dobrać lawetę.';
@@ -538,6 +542,8 @@
 
       if ([weight, length, width, hours, distance].some(Number.isNaN)) {
         result.dataset.state = 'warning';
+        delete result.dataset.trailer;
+        result.style.removeProperty('--trailer-image');
         truckOutput.textContent = 'Uzupełnij parametry';
         planOutput.textContent = 'Brak rekomendacji';
         noteOutput.textContent = 'Wszystkie pola są potrzebne do wykonania wstępnego doboru.';
@@ -557,6 +563,8 @@
         if (width > maxWidth) exceeded.push(`szerokość ${formatNumber(maxWidth)} m`);
 
         result.dataset.state = 'error';
+    delete result.dataset.trailer;
+    result.style.removeProperty('--trailer-image');
         truckOutput.textContent = 'Wymagana konsultacja';
         planOutput.textContent = 'Poza standardowym zakresem';
         noteOutput.textContent = exceeded.length
@@ -580,6 +588,9 @@
         : 'Wycena indywidualna';
 
       result.dataset.state = planWarning ? 'warning' : 'success';
+    result.dataset.trailer = trailer.id;
+      const trailerImageUrl = new URL(trailer.image, document.baseURI).href;
+      result.style.setProperty('--trailer-image', `url(${JSON.stringify(trailerImageUrl)})`);
       truckOutput.textContent = trailer.name;
       planOutput.textContent = plan;
       noteOutput.textContent = planWarning

@@ -3,6 +3,7 @@
     {
       "id": "mercedes-sprinter",
       "name": "Mercedes Sprinter",
+      "image": "resources/photos/foto2.jpg",
       "maxPayloadKg": 1600,
       "platformLengthM": 4.5,
       "platformWidthM": 2.1,
@@ -11,6 +12,7 @@
     {
       "id": "vw-crafter",
       "name": "VW Crafter",
+      "image": "resources/photos/vw.jpg",
       "maxPayloadKg": 1600,
       "platformLengthM": 5.1,
       "platformWidthM": 2.1,
