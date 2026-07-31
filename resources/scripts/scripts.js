@@ -30,16 +30,13 @@
       themeToggle.setAttribute('aria-checked', theme === 'dark' ? 'true' : 'false');
     }
 
-    localStorage.setItem('theme', theme);
+    if (window.autoSprinterPrivacy) {
+      window.autoSprinterPrivacy.saveTheme(theme);
+    }
     window.dispatchEvent(new Event('themechange'));
   }
 
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark' || savedTheme === 'light') {
-    setTheme(savedTheme);
-  } else {
-    setTheme('light');
-  }
+  setTheme(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
 
   if (themeToggle) {
     themeToggle.addEventListener('click', function () {
