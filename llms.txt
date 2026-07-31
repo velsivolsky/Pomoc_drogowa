@@ -11,7 +11,8 @@ Krótki opis: wynajem autolawet na prawo jazdy kat. B, Gdańsk Matarnia (ul. Har
 - Zakres uslug: wynajem kraj i zagranica oraz transport samochodow.
 
 ## Strony lokalne
-- /index.html - Wynajem autolawet Gdansk
+- /index.html - AUTO-SPRINTER, strona glowna
+- /gdansk.html - Wynajem autolawet Gdansk Matarnia
 - /gdynia.html - Wynajem autolawet Gdynia
 - /sopot.html - Wynajem autolawet Sopot
 - /trojmiasto.html - Wynajem autolawet Trojmiasto

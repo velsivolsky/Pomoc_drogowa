@@ -1,0 +1,40 @@
+{
+  "trailers": [
+    {
+      "id": "mercedes-sprinter",
+      "name": "Mercedes Sprinter",
+      "maxPayloadKg": 1600,
+      "platformLengthM": 4.5,
+      "platformWidthM": 2.1,
+      "preferredVehicleTypes": ["car", "suv"]
+    },
+    {
+      "id": "vw-crafter",
+      "name": "VW Crafter",
+      "maxPayloadKg": 1600,
+      "platformLengthM": 5.1,
+      "platformWidthM": 2.1,
+      "preferredVehicleTypes": ["van"]
+    }
+  ],
+  "plans": [
+    {
+      "id": "6h",
+      "hours": 6,
+      "pricePln": 150,
+      "maxDistanceKm": null
+    },
+    {
+      "id": "12h",
+      "hours": 12,
+      "pricePln": 200,
+      "maxDistanceKm": 500
+    },
+    {
+      "id": "24h",
+      "hours": 24,
+      "pricePln": 300,
+      "maxDistanceKm": 800
+    }
+  ]
+}

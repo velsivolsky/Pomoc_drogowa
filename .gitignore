@@ -1,0 +1,53 @@
+# Local IDE and editor settings
+/.vscode
+/.idea
+*.code-workspace
+*.swp
+*.swo
+*~
+
+# Local AI and development tooling
+/.claude/
+/.mcp.json
+/.ripgreprc
+
+# Shell and user-level configuration accidentally created in the project
+/.bash_profile
+/.bashrc
+/.profile
+/.zprofile
+/.zshrc
+/.gitconfig
+/.gitmodules
+
+# Environment variables and local secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies and generated output
+node_modules/
+dist/
+build/
+coverage/
+.cache/
+.tmp/
+tmp/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+
+# OS metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Desktop.ini
+
+# Local development server files
+.live-server.json
+.http-server/

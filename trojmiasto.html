@@ -9,8 +9,8 @@
   <meta property="og:title" content="AUTO-SPRINTER - Wynajem autolawet Trójmiasto">
   <meta property="og:description" content="Wynajem autolawet dla klientów z całego Trójmiasta. Szybka rezerwacja telefoniczna.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="foto1.jpg">
-  <link rel="stylesheet" href="styles.css">
+  <meta property="og:image" content="resources/photos/foto1.jpg">
+  <link rel="stylesheet" href="resources/styles/styles.css">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -60,8 +60,8 @@
   <header class="site-header">
     <a href="index.html" class="brand-badge" aria-label="AUTO-SPRINTER">
       <span class="brand-logo-wrap" aria-hidden="true">
-        <img class="brand-logo brand-logo-light" src="logo-light.svg" alt="">
-        <img class="brand-logo brand-logo-dark" src="logo-dark.svg" alt="">
+        <img class="brand-logo brand-logo-light" src="resources/photos/logo-light.svg" alt="">
+        <img class="brand-logo brand-logo-dark" src="resources/photos/logo-dark.svg" alt="">
       </span>
       <span class="brand-name"><span class="brand-name-auto">AUTO-</span><span class="brand-name-sprinter">SPRINTER</span></span>
     </a>
@@ -83,20 +83,24 @@
     <section class="hero section-gap tone-gunmetal">
       <div class="hero-shell">
         <figure class="hero-media reveal" aria-hidden="true">
-          <img class="hero-photo" src="foto1.jpg" alt="Wynajem autolawet Trójmiasto">
+          <img class="hero-photo" src="resources/photos/foto1.jpg" alt="Wynajem autolawet Trójmiasto">
         </figure>
         <div class="hero-overlay" aria-hidden="true"></div>
 
         <div class="container hero-grid">
           <div class="hero-copy reveal">
-            <p class="kicker">Wynajem autolawet | Trójmiasto</p>
+            <p class="kicker">Autolaweta dla Trójmiasta. Od 150 zł.</p>
             <h1>Wynajem autolawet Gdańsk, Gdynia, Sopot</h1>
-            <p class="hero-subtext">Autolawety kat. B dostępne dla klientów z całego Trójmiasta. Sprawna rezerwacja i jasne warunki wynajmu.</p>
+            <ul class="hero-facts" aria-label="Najważniejsze informacje">
+              <li>Prawo jazdy kat. B</li>
+              <li>Odbiór Gdańsk Matarnia</li>
+              <li>Codziennie 8:00-22:00</li>
+            </ul>
             <div class="hero-cta">
-              <a href="tel:+48601659781" class="btn btn-primary">Zadzwoń: 601 659 781</a>
-              <a href="#faq" class="btn btn-ghost">FAQ</a>
+              <a href="tel:+48601659781" class="btn btn-primary">Sprawdź dostępność na dziś</a>
+              <a href="#dobor" class="btn btn-ghost">Dobierz lawetę</a>
             </div>
-            <p class="hero-meta">ul. Harfowa 32, Gdańsk Złota Karczma / Matarnia</p>
+            <p class="hero-meta">601 659 781 · ul. Harfowa 32, Gdańsk</p>
           </div>
         </div>
       </div>
@@ -114,6 +118,50 @@
         </div>
       </div>
       <p class="trusted-note container">Wynajem na terenie kraju i za granicą. Wykonujemy również usługi transportowe i przewóz samochodów.</p>
+    </section>
+
+    <section id="dobor" class="selector section-gap tone-cinder">
+      <div class="container selector-layout">
+        <div class="selector-intro reveal">
+          <p class="section-label">Dobór lawety dla Trójmiasta</p>
+          <h2 class="section-title">Czy Twoje auto wejdzie na lawetę?</h2>
+          <p class="section-lead">Podaj masę i wymiary pojazdu oraz planowaną trasę. Wskażemy platformę i wariant wynajmu przed odbiorem w Gdańsku.</p>
+          <div class="selector-specs" aria-label="Maksymalne parametry lawet">
+            <span><strong data-selector-max-payload>—</strong> maks. ładowności</span>
+            <span><strong data-selector-max-platform>—</strong> największa platforma</span>
+          </div>
+        </div>
+        <div data-selector-form-mount></div>
+      </div>
+    </section>
+
+    <section id="cennik" class="services section-gap tone-carbon">
+      <div class="container pricing-layout">
+        <div class="pricing-intro reveal">
+          <p class="section-label">Jeden cennik dla Trójmiasta</p>
+          <h2 class="section-title">Prosty cennik wynajmu</h2>
+          <p class="section-lead">Wybierasz czas, którego potrzebujesz. Kaucja zwrotna wynosi 1000 zł.</p>
+          <a href="tel:+48601659781" class="pricing-call">Sprawdź termin: 601 659 781</a>
+        </div>
+        <div class="pricing-table reveal" role="list" aria-label="Warianty wynajmu autolawety">
+          <article class="pricing-row" role="listitem">
+            <div class="pricing-duration"><strong>6</strong><span>godzin</span></div>
+            <p><strong>150 zł</strong><span>Szybki odbiór auta lub lokalny transport</span></p>
+            <span class="pricing-limit">Krótki wynajem</span>
+          </article>
+          <article class="pricing-row pricing-row-featured" role="listitem">
+            <span class="pricing-badge">Najczęściej wybierany</span>
+            <div class="pricing-duration"><strong>12</strong><span>godzin</span></div>
+            <p><strong>200 zł</strong><span>Jednodniowe zlecenia i transport lokalny</span></p>
+            <span class="pricing-limit">Limit 500 km</span>
+          </article>
+          <article class="pricing-row" role="listitem">
+            <div class="pricing-duration"><strong>24</strong><span>godziny</span></div>
+            <p><strong>300 zł</strong><span>Dłuższe trasy krajowe i zagraniczne</span></p>
+            <span class="pricing-limit">Limit 800 km</span>
+          </article>
+        </div>
+      </div>
     </section>
 
     <section id="faq" class="faq section-gap tone-ash">
@@ -167,7 +215,7 @@
       </div>
       <div>
         <h3>Lokalizacje</h3>
-        <a href="index.html">Wynajem autolawet Gdańsk</a>
+        <a href="gdansk.html">Wynajem autolawet Gdańsk</a>
         <a href="gdynia.html">Wynajem autolawet Gdynia</a>
         <a href="sopot.html">Wynajem autolawet Sopot</a>
       </div>
@@ -176,6 +224,6 @@
 
   <a class="mobile-call" href="tel:+48601659781" aria-label="Zadzwoń i zarezerwuj autolawetę">Zadzwoń: 601 659 781</a>
 
-  <script src="scripts.js"></script>
+  <script src="resources/scripts/scripts.js"></script>
 </body>
 </html>

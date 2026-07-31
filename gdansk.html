@@ -3,49 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AUTO-SPRINTER | Wynajem autolawet Sopot - kat. B | 601 659 781</title>
-  <meta name="description" content="AUTO-SPRINTER: wynajem autolawet dla klientów z Sopotu. Kat. B, cennik od 150 zł, wydanie 8:00-22:00, szybka rezerwacja telefoniczna.">
+  <title>AUTO-SPRINTER | Wynajem autolawet Gdańsk Matarnia - kat. B | 601 659 781</title>
+  <meta name="description" content="Wynajem autolawet w Gdańsku Matarnia. Mercedes Sprinter i VW Crafter na kat. B, cennik od 150 zł, odbiór przy ul. Harfowej 32, codziennie 8:00-22:00.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="theme-color" content="#f4eee6">
-  <meta property="og:title" content="AUTO-SPRINTER - Wynajem autolawet Sopot - kat. B">
-  <meta property="og:description" content="Autolaweta od ręki dla klientów z Sopotu. Sprinter i Crafter.">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:title" content="AUTO-SPRINTER - Wynajem autolawet Gdańsk Matarnia">
+  <meta property="og:description" content="Autolaweta na kat. B od 150 zł. Odbiór w Gdańsku Matarnia, ul. Harfowa 32.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="resources/photos/foto3.jpg">
+  <meta property="og:image" content="resources/photos/foto1.jpg">
   <link rel="stylesheet" href="resources/styles/styles.css">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
         {
+          "@type": "WebPage",
+          "name": "Wynajem autolawet Gdańsk Matarnia",
+          "description": "Wynajem autolawet na prawo jazdy kat. B z odbiorem przy ul. Harfowej 32 w Gdańsku.",
+          "inLanguage": "pl-PL"
+        },
+        {
           "@type": "LocalBusiness",
+          "@id": "#localbusiness",
           "name": "AUTO-SPRINTER Wynajem Autolawet Gdańsk",
+          "image": "resources/photos/foto1.jpg",
           "telephone": "+48 601 659 781",
+          "priceRange": "150-300 PLN",
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "ul. Harfowa 32",
             "addressLocality": "Gdańsk",
             "addressCountry": "PL"
           },
-          "areaServed": ["Sopot", "Trójmiasto", "Polska"],
-          "openingHours": "Mo-Su 08:00-22:00",
-          "priceRange": "150-300 PLN"
+          "areaServed": ["Gdańsk", "Matarnia", "Złota Karczma", "Wrzeszcz", "Oliwa", "Osowa", "Trójmiasto"],
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "08:00",
+            "closes": "22:00"
+          }
+        },
+        {
+          "@type": "Service",
+          "name": "Wynajem autolawet w Gdańsku",
+          "provider": { "@id": "#localbusiness" },
+          "serviceType": "Wynajem autolawet na prawo jazdy kat. B",
+          "areaServed": { "@type": "City", "name": "Gdańsk" }
         },
         {
           "@type": "FAQPage",
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "Czy autolaweta jest na prawo jazdy kat. B?",
+              "name": "Gdzie odbiera się autolawetę w Gdańsku?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Tak, nasze autolawety można prowadzić z prawem jazdy kategorii B."
+                "text": "Odbiór i zwrot autolawety odbywa się przy ul. Harfowej 32 w Gdańsku, w rejonie Matarni i Złotej Karczmy."
               }
             },
             {
               "@type": "Question",
-              "name": "Czy możliwy jest wyjazd za granicę?",
+              "name": "Ile kosztuje wynajem autolawety w Gdańsku?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Tak, oferujemy wynajem na terenie kraju i za granicą po ustaleniu szczegółów."
+                "text": "6 godzin kosztuje 150 zł, 12 godzin 200 zł z limitem 500 km, a 24 godziny 300 zł z limitem 800 km."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Czy do prowadzenia autolawety wystarczy prawo jazdy kat. B?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Tak, oferowane autolawety mają DMC 3500 kg i można je prowadzić z prawem jazdy kategorii B."
               }
             }
           ]
@@ -73,9 +103,7 @@
           <span class="theme-toggle-thumb"></span>
         </span>
       </button>
-      <a href="tel:+48601659781" class="btn btn-primary btn-call" aria-label="Zadzwoń teraz">
-        <span aria-hidden="true" class="call-icon">☎</span>
-      </a>
+      <a href="tel:+48601659781" class="btn btn-primary btn-call" aria-label="Zadzwoń teraz"><span aria-hidden="true" class="call-icon">☎</span></a>
     </div>
   </header>
 
@@ -83,24 +111,26 @@
     <section class="hero section-gap tone-gunmetal">
       <div class="hero-shell">
         <figure class="hero-media reveal" aria-hidden="true">
-          <img class="hero-photo" src="resources/photos/foto3.jpg" alt="Autolaweta dla klientów z Sopotu">
+          <picture>
+            <source media="(max-width: 720px)" srcset="resources/photos/foto_hero_m.jpg">
+            <img class="hero-photo" src="resources/photos/foto1.jpg" alt="Autolaweta do wynajęcia w Gdańsku Matarnia">
+          </picture>
         </figure>
         <div class="hero-overlay" aria-hidden="true"></div>
-
         <div class="container hero-grid">
           <div class="hero-copy reveal">
-            <p class="kicker">Autolaweta dla Sopotu. Od 150 zł.</p>
-            <h1>Wynajem autolawety dla klientów z Sopotu</h1>
+            <p class="kicker">Autolaweta w Gdańsku. Od 150 zł.</p>
+            <h1>Wynajem autolawet Gdańsk Matarnia</h1>
             <ul class="hero-facts" aria-label="Najważniejsze informacje">
               <li>Prawo jazdy kat. B</li>
-              <li>Odbiór Gdańsk Matarnia</li>
+              <li>Odbiór ul. Harfowa 32</li>
               <li>Codziennie 8:00-22:00</li>
             </ul>
             <div class="hero-cta">
               <a href="tel:+48601659781" class="btn btn-primary">Sprawdź dostępność na dziś</a>
               <a href="#dobor" class="btn btn-ghost">Dobierz lawetę</a>
             </div>
-            <p class="hero-meta">601 659 781 · ul. Harfowa 32, Gdańsk</p>
+            <p class="hero-meta">601 659 781 · Gdańsk Złota Karczma / Matarnia</p>
           </div>
         </div>
       </div>
@@ -108,7 +138,7 @@
 
     <section class="trusted section-tight tone-steel" aria-label="Najważniejsze informacje">
       <div class="container trusted-grid">
-        <p class="trusted-title">Wynajem dla klientów z Sopotu</p>
+        <p class="trusted-title">Lokalny wynajem w Gdańsku</p>
         <div class="trusted-brands" role="list" aria-label="Najważniejsze atuty oferty">
           <span class="brand-mark" role="listitem">Kat. B</span>
           <span class="brand-mark" role="listitem">Do 1600 kg</span>
@@ -117,15 +147,15 @@
           <span class="brand-mark" role="listitem">Transport aut</span>
         </div>
       </div>
-      <p class="trusted-note container">Rezerwujesz telefonicznie, a autolawetę odbierasz przy ul. Harfowej 32 w Gdańsku Matarnia.</p>
+      <p class="trusted-note container">Dogodny odbiór w pobliżu obwodnicy Trójmiasta, lotniska i dzielnic Matarnia, Osowa oraz Wrzeszcz.</p>
     </section>
 
     <section id="dobor" class="selector section-gap tone-cinder">
       <div class="container selector-layout">
         <div class="selector-intro reveal">
-          <p class="section-label">Dobór lawety dla klientów z Sopotu</p>
+          <p class="section-label">Dobór lawety w Gdańsku</p>
           <h2 class="section-title">Czy Twoje auto wejdzie na lawetę?</h2>
-          <p class="section-lead">Podaj masę i wymiary pojazdu oraz planowaną trasę. Wskażemy platformę i wariant wynajmu przed odbiorem w Gdańsku.</p>
+          <p class="section-lead">Podaj masę i wymiary pojazdu oraz planowaną trasę. Wskażemy właściwą platformę i wariant wynajmu.</p>
           <div class="selector-specs" aria-label="Maksymalne parametry lawet">
             <span><strong data-selector-max-payload>—</strong> maks. ładowności</span>
             <span><strong data-selector-max-platform>—</strong> największa platforma</span>
@@ -135,31 +165,12 @@
       </div>
     </section>
 
-    <section id="warunki" class="reviews section-gap tone-steel">
-      <div class="container">
-        <h2 class="section-title reveal">Warunki wynajmu</h2>
-        <div class="reviews-carousel reviews-static reveal" aria-label="Warunki wynajmu autolawet">
-          <div class="reviews-set">
-            <article class="quote">
-              <p>Prawo jazdy kat. B oraz dowód osobisty.</p>
-            </article>
-            <article class="quote">
-              <p>Kaucja zwrotna: 1000 zł.</p>
-            </article>
-            <article class="quote">
-              <p>Wydanie i odbiór: 8:00-22:00, codziennie.</p>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section id="cennik" class="services section-gap tone-carbon">
       <div class="container pricing-layout">
         <div class="pricing-intro reveal">
-          <p class="section-label">Stałe stawki dla Sopotu</p>
+          <p class="section-label">Cennik dla Gdańska</p>
           <h2 class="section-title">Prosty cennik wynajmu</h2>
-          <p class="section-lead">Wybierasz czas, którego potrzebujesz. Kaucja zwrotna wynosi 1000 zł.</p>
+          <p class="section-lead">Stałe stawki i minimum formalności. Kaucja zwrotna wynosi 1000 zł.</p>
           <a href="tel:+48601659781" class="pricing-call">Sprawdź termin: 601 659 781</a>
         </div>
         <div class="pricing-table reveal" role="list" aria-label="Warianty wynajmu autolawety">
@@ -183,10 +194,52 @@
       </div>
     </section>
 
+    <section id="warunki" class="reviews section-gap tone-steel">
+      <div class="container">
+        <h2 class="section-title reveal">Odbiór autolawety w Gdańsku</h2>
+        <p class="section-lead reveal">Wszystkie formalności i wydanie pojazdu realizujemy przy ul. Harfowej 32.</p>
+        <div class="reviews-carousel reviews-static reveal" aria-label="Warunki wynajmu autolawet">
+          <div class="reviews-set">
+            <article class="quote"><p>Wymagane dokumenty: polskie prawo jazdy kat. B oraz dowód osobisty lub UE.</p></article>
+            <article class="quote"><p>Wydanie i odbiór: codziennie od 8:00 do 22:00.</p></article>
+            <article class="quote"><p>Kaucja zwrotna wynosi 1000 zł.</p></article>
+            <article class="quote"><p>Auto odbierasz zatankowane i czyste oraz zwracasz w takim samym stanie.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="faq section-gap tone-ash">
+      <div class="container faq-grid">
+        <div class="faq-head reveal">
+          <h2 class="section-title faq-title">FAQ</h2>
+          <p class="section-lead faq-lead">Najczęstsze pytania o wynajem autolawety w Gdańsku.</p>
+        </div>
+        <div class="faq-items reveal">
+          <details class="faq-item">
+            <summary>Gdzie odbiera się autolawetę?</summary>
+            <div class="faq-content"><p>Przy ul. Harfowej 32 w Gdańsku, w rejonie Matarni i Złotej Karczmy.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Czy wystarczy prawo jazdy kat. B?</summary>
+            <div class="faq-content"><p>Tak, nasze autolawety mają DMC 3500 kg i można je prowadzić na prawo jazdy kategorii B.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Ile kosztuje wynajem?</summary>
+            <div class="faq-content"><p>6h kosztuje 150 zł, 12h 200 zł, a 24h 300 zł. Kaucja zwrotna wynosi 1000 zł.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>Czy można wyjechać za granicę?</summary>
+            <div class="faq-content"><p>Tak, wynajem obejmuje trasy krajowe i zagraniczne po wcześniejszym ustaleniu szczegółów.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <section id="kontakt" class="cta section-gap tone-carbon">
       <div class="container cta-box reveal">
-        <h2>Rezerwacja autolawety - Sopot</h2>
-        <p>Skontaktuj się i ustal termin wynajmu.</p>
+        <h2>Zarezerwuj autolawetę w Gdańsku</h2>
+        <p>Odbiór przy ul. Harfowej 32 w Gdańsku Matarnia. Termin potwierdzisz telefonicznie.</p>
         <a href="tel:+48601659781" class="btn btn-primary">Zadzwoń: 601 659 781</a>
       </div>
     </section>
@@ -196,24 +249,25 @@
     <div class="container footer-grid">
       <div>
         <p class="brand">AUTO-SPRINTER Wynajem Autolawet Gdańsk</p>
-        <p>Obsługa klientów z Gdańska, Gdyni, Sopotu i całego Trójmiasta.</p>
+        <p>Autolawety Mercedes Sprinter i VW Crafter na prawo jazdy kat. B.</p>
       </div>
       <div>
         <h3>Kontakt</h3>
         <a href="tel:+48601659781">+48 601 659 781</a>
         <p>ul. Harfowa 32, Gdańsk</p>
+        <p>8:00-22:00, 7 dni w tygodniu</p>
       </div>
       <div>
         <h3>Lokalizacje</h3>
-        <a href="gdansk.html">Wynajem autolawet Gdańsk</a>
+        <a href="index.html">Strona główna</a>
         <a href="gdynia.html">Wynajem autolawet Gdynia</a>
+        <a href="sopot.html">Wynajem autolawet Sopot</a>
         <a href="trojmiasto.html">Wynajem autolawet Trójmiasto</a>
       </div>
     </div>
   </footer>
 
   <a class="mobile-call" href="tel:+48601659781" aria-label="Zadzwoń i zarezerwuj autolawetę">Zadzwoń: 601 659 781</a>
-
   <script src="resources/scripts/scripts.js"></script>
 </body>
 </html>

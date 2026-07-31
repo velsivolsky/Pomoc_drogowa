@@ -48,6 +48,8 @@
     });
   }
 
+  renderVehicleSelectorForm();
+
   const revealItems = document.querySelectorAll('.reveal');
   const sections = document.querySelectorAll('main section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
@@ -347,7 +349,272 @@
     });
   }
 
+  function renderVehicleSelectorForm() {
+    const mount = document.querySelector('[data-selector-form-mount]');
+    if (!mount) {
+      return;
+    }
+
+    mount.outerHTML = `
+      <form class="selector-form reveal" data-selector-form aria-busy="true">
+        <fieldset class="selector-fieldset">
+          <legend>Rodzaj pojazdu</legend>
+          <div class="selector-segments">
+            <label><input type="radio" name="vehicle" value="car" checked><span>Osobowe</span></label>
+            <label><input type="radio" name="vehicle" value="suv"><span>SUV / 4×4</span></label>
+            <label><input type="radio" name="vehicle" value="van"><span>Dostawcze</span></label>
+          </div>
+        </fieldset>
+
+        <p class="selector-group-title">Parametry pojazdu</p>
+        <div class="selector-fields selector-vehicle-fields">
+          <label class="selector-field">
+            <span>Masa</span>
+            <span class="selector-input">
+              <input type="number" name="weight" aria-label="Masa pojazdu w kilogramach" min="400" max="3500" step="10" value="1300" required inputmode="numeric">
+              <small>kg</small>
+            </span>
+          </label>
+          <label class="selector-field">
+            <span>Długość</span>
+            <span class="selector-input">
+              <input type="number" name="length" aria-label="Długość pojazdu w metrach" min="2.5" max="8" step="0.1" value="4.3" required inputmode="decimal">
+              <small>m</small>
+            </span>
+          </label>
+          <label class="selector-field">
+            <span>Szerokość</span>
+            <span class="selector-input">
+              <input type="number" name="width" aria-label="Szerokość pojazdu w metrach" min="1.2" max="3" step="0.05" value="1.8" required inputmode="decimal">
+              <small>m</small>
+            </span>
+          </label>
+        </div>
+
+        <p class="selector-group-title">Plan wynajmu</p>
+        <div class="selector-fields selector-trip-fields">
+          <label class="selector-field">
+            <span>Potrzebny czas</span>
+            <span class="selector-input">
+              <input type="number" name="hours" aria-label="Potrzebny czas w godzinach" min="1" max="48" step="1" value="6" required inputmode="numeric">
+              <small>godz.</small>
+            </span>
+          </label>
+          <label class="selector-field">
+            <span>Trasa łącznie</span>
+            <span class="selector-input">
+              <input type="number" name="distance" aria-label="Planowana trasa łącznie w kilometrach" min="0" max="5000" step="10" value="100" required inputmode="numeric">
+              <small>km</small>
+            </span>
+          </label>
+        </div>
+
+        <div class="selector-result" data-selector-result aria-live="polite">
+          <p class="selector-result-label">Wstępna rekomendacja</p>
+          <div class="selector-result-main">
+            <strong data-selector-truck>Wczytywanie danych…</strong>
+            <span data-selector-plan></span>
+          </div>
+          <p data-selector-note>Za chwilę pokażemy dopasowaną lawetę i wariant wynajmu.</p>
+          <a class="btn btn-primary" href="tel:+48601659781">Potwierdź dostępność: 601 659 781</a>
+        </div>
+        <p class="selector-disclaimer">Wynik ma charakter orientacyjny. Przed rezerwacją potwierdzimy masę, wymiary, rozkład obciążenia i dostępność lawety.</p>
+      </form>`;
+  }
+
+  async function setupVehicleSelector() {
+    const form = document.querySelector('[data-selector-form]');
+    if (!form) {
+      return;
+    }
+
+    const result = form.querySelector('[data-selector-result]');
+    const truckOutput = form.querySelector('[data-selector-truck]');
+    const planOutput = form.querySelector('[data-selector-plan]');
+    const noteOutput = form.querySelector('[data-selector-note]');
+    const maxPayloadOutput = document.querySelector('[data-selector-max-payload]');
+    const maxPlatformOutput = document.querySelector('[data-selector-max-platform]');
+    let trailers = [];
+    let plans = [];
+
+    function formatNumber(value) {
+      return value.toLocaleString('pl-PL', { maximumFractionDigits: 2 });
+    }
+
+    function formatHours(hours) {
+      const lastTwoDigits = hours % 100;
+      const lastDigit = hours % 10;
+      if (lastTwoDigits >= 12 && lastTwoDigits <= 14) {
+        return `${hours} godzin`;
+      }
+      if (lastDigit >= 2 && lastDigit <= 4) {
+        return `${hours} godziny`;
+      }
+      return `${hours} godzin`;
+    }
+
+    function isValidConfiguration(data) {
+      if (!data || !Array.isArray(data.trailers) || !data.trailers.length || !Array.isArray(data.plans) || !data.plans.length) {
+        return false;
+      }
+
+      const trailersValid = data.trailers.every(function (trailer) {
+        return typeof trailer.name === 'string'
+          && Number.isFinite(trailer.maxPayloadKg)
+          && Number.isFinite(trailer.platformLengthM)
+          && Number.isFinite(trailer.platformWidthM);
+      });
+      const plansValid = data.plans.every(function (plan) {
+        return Number.isFinite(plan.hours)
+          && Number.isFinite(plan.pricePln)
+          && (plan.maxDistanceKm === null || Number.isFinite(plan.maxDistanceKm));
+      });
+
+      return trailersValid && plansValid;
+    }
+
+    try {
+      const response = await fetch('resources/data/vehicle-selector.json', { cache: 'no-cache' });
+      if (!response.ok) {
+        throw new Error(`Configuration request failed: ${response.status}`);
+      }
+
+      const configuration = await response.json();
+      if (!isValidConfiguration(configuration)) {
+        throw new Error('Invalid vehicle selector configuration');
+      }
+
+      trailers = configuration.trailers.slice().sort(function (first, second) {
+        return first.platformLengthM - second.platformLengthM;
+      });
+      plans = configuration.plans.slice().sort(function (first, second) {
+        return first.hours - second.hours;
+      });
+    } catch (error) {
+      form.setAttribute('aria-busy', 'false');
+      result.dataset.state = 'error';
+      truckOutput.textContent = 'Konfigurator niedostępny';
+      planOutput.textContent = '';
+      noteOutput.textContent = 'Nie udało się wczytać danych. Odśwież stronę lub zadzwoń, aby dobrać lawetę.';
+      console.error(error);
+      return;
+    }
+
+    const maxPayload = Math.max.apply(null, trailers.map(function (trailer) {
+      return trailer.maxPayloadKg;
+    }));
+    const maxLength = Math.max.apply(null, trailers.map(function (trailer) {
+      return trailer.platformLengthM;
+    }));
+    const maxWidth = Math.max.apply(null, trailers.map(function (trailer) {
+      return trailer.platformWidthM;
+    }));
+    const maxPlanHours = Math.max.apply(null, plans.map(function (plan) {
+      return plan.hours;
+    }));
+    const planDistanceLimits = plans.map(function (plan) {
+      return plan.maxDistanceKm;
+    }).filter(Number.isFinite);
+    const maxPlanDistance = planDistanceLimits.length ? Math.max.apply(null, planDistanceLimits) : Number.POSITIVE_INFINITY;
+
+    if (maxPayloadOutput) {
+      maxPayloadOutput.textContent = `${formatNumber(maxPayload)} kg`;
+    }
+    if (maxPlatformOutput) {
+      maxPlatformOutput.textContent = `${formatNumber(maxLength)} × ${formatNumber(maxWidth)} m`;
+    }
+    form.setAttribute('aria-busy', 'false');
+
+    function getNumber(name) {
+      const field = form.elements.namedItem(name);
+      return field ? Number.parseFloat(field.value) : Number.NaN;
+    }
+
+    function updateRecommendation() {
+      const vehicleField = form.elements.namedItem('vehicle');
+      const vehicle = vehicleField ? vehicleField.value : 'car';
+      const weight = getNumber('weight');
+      const length = getNumber('length');
+      const width = getNumber('width');
+      const hours = getNumber('hours');
+      const distance = getNumber('distance');
+
+      if ([weight, length, width, hours, distance].some(Number.isNaN)) {
+        result.dataset.state = 'warning';
+        truckOutput.textContent = 'Uzupełnij parametry';
+        planOutput.textContent = 'Brak rekomendacji';
+        noteOutput.textContent = 'Wszystkie pola są potrzebne do wykonania wstępnego doboru.';
+        return;
+      }
+
+      const fittingTrailers = trailers.filter(function (trailer) {
+        return weight <= trailer.maxPayloadKg
+          && length <= trailer.platformLengthM
+          && width <= trailer.platformWidthM;
+      });
+
+      if (!fittingTrailers.length) {
+        const exceeded = [];
+        if (weight > maxPayload) exceeded.push(`masę ${formatNumber(maxPayload)} kg`);
+        if (length > maxLength) exceeded.push(`długość ${formatNumber(maxLength)} m`);
+        if (width > maxWidth) exceeded.push(`szerokość ${formatNumber(maxWidth)} m`);
+
+        result.dataset.state = 'error';
+        truckOutput.textContent = 'Wymagana konsultacja';
+        planOutput.textContent = 'Poza standardowym zakresem';
+        noteOutput.textContent = exceeded.length
+          ? `Pojazd przekracza ${exceeded.join(', ')}. Zadzwoń, aby sprawdzić możliwość transportu innym rozwiązaniem.`
+          : 'Połączenie podanych parametrów nie mieści się na dostępnych lawetach. Skontaktuj się z nami, aby potwierdzić inne rozwiązanie.';
+        return;
+      }
+
+      const preferredTrailer = fittingTrailers.find(function (trailer) {
+        return Array.isArray(trailer.preferredVehicleTypes) && trailer.preferredVehicleTypes.includes(vehicle);
+      });
+      const trailer = preferredTrailer || fittingTrailers[0];
+      const exceedsStandardPlan = hours > maxPlanHours || distance > maxPlanDistance;
+      const selectedPlan = exceedsStandardPlan ? null : plans.find(function (plan) {
+        const distanceFits = plan.maxDistanceKm === null || distance <= plan.maxDistanceKm;
+        return hours <= plan.hours && distanceFits;
+      });
+      const planWarning = !selectedPlan;
+      const plan = selectedPlan
+        ? `${formatHours(selectedPlan.hours)} · ${formatNumber(selectedPlan.pricePln)} zł`
+        : 'Wycena indywidualna';
+
+      result.dataset.state = planWarning ? 'warning' : 'success';
+      truckOutput.textContent = trailer.name;
+      planOutput.textContent = plan;
+      noteOutput.textContent = planWarning
+        ? `Parametry pojazdu pasują, ale czas lub dystans przekracza standardowy wariant ${formatHours(maxPlanHours)} / ${formatNumber(maxPlanDistance)} km.`
+        : `Parametry mieszczą się w zakresie lawety ${trailer.name}. Ostateczny dobór potwierdzimy przed rezerwacją.`;
+    }
+
+    form.addEventListener('input', updateRecommendation);
+    form.addEventListener('change', updateRecommendation);
+    updateRecommendation();
+  }
+
+  function setupMobileCallVisibility() {
+    const mobileCall = document.querySelector('.mobile-call');
+    const hero = document.querySelector('.hero');
+    if (!mobileCall || !hero) {
+      return;
+    }
+
+    function updateMobileCallVisibility() {
+      const heroBottom = hero.offsetTop + hero.offsetHeight;
+      mobileCall.classList.toggle('is-hidden', window.scrollY < heroBottom * 0.75);
+    }
+
+    window.addEventListener('scroll', updateMobileCallVisibility, { passive: true });
+    window.addEventListener('resize', updateMobileCallVisibility);
+    updateMobileCallVisibility();
+  }
+
   setupActiveNavigation();
+  setupVehicleSelector();
+  setupMobileCallVisibility();
   const updateToneFlow = setupSectionToneFlow();
   if (isMobile()) {
     forceMobileHeadingVisibility();
@@ -795,38 +1062,26 @@
     }
   });
 
-  // Fade-in + slide-up for reveal elements, once only.
-  if (isMobile()) {
-    gsap.set('.reveal', { autoAlpha: 0, y: 34 });
-    ScrollTrigger.batch('.reveal', {
-      once: true,
-      start: 'top 86%',
-      onEnter: function (batch) {
-        gsap.to(batch, {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.9,
-          stagger: 0.12,
-          ease: 'power3.out'
-        });
-      }
-    });
-  } else {
-    gsap.set('.reveal', { autoAlpha: 0, y: 34 });
-    ScrollTrigger.batch('.reveal', {
-      once: true,
-      start: 'top 86%',
-      onEnter: function (batch) {
-        gsap.to(batch, {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.9,
-          stagger: 0.12,
-          ease: 'power3.out'
-        });
-      }
-    });
-  }
+  // The first viewport must never depend on a scroll event to become visible.
+  const heroRevealItems = document.querySelectorAll('.hero .reveal');
+  const scrollRevealItems = Array.from(revealItems).filter(function (item) {
+    return item.closest('.hero') === null;
+  });
+  gsap.set(heroRevealItems, { autoAlpha: 1, y: 0 });
+  gsap.set(scrollRevealItems, { autoAlpha: 0, y: 34 });
+  ScrollTrigger.batch(scrollRevealItems, {
+    once: true,
+    start: 'top 86%',
+    onEnter: function (batch) {
+      gsap.to(batch, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.9,
+        stagger: 0.12,
+        ease: 'power3.out'
+      });
+    }
+  });
 
   // Keep headings static on mobile; clip reveal remains on desktop.
   if (isMobile()) {
@@ -915,7 +1170,7 @@
   });
 
   // Section transitions: subtle blur-out/blur-in choreography between blocks.
-  const flowSections = document.querySelectorAll('main > section');
+  const flowSections = document.querySelectorAll('main > section:not(.hero)');
   flowSections.forEach(function (section) {
     gsap.fromTo(
       section,
