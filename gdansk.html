@@ -129,7 +129,7 @@
             </ul>
             <div class="hero-cta">
               <a href="tel:+48601659781" class="btn btn-primary">Sprawdź dostępność na dziś</a>
-              <a href="#dobor" class="btn btn-ghost">Dobierz lawetę</a>
+              <a href="#flota" class="btn btn-ghost">Zobacz naszą flotę</a>
             </div>
             <p class="hero-meta">601 659 781 · Gdańsk Złota Karczma / Matarnia</p>
           </div>
@@ -149,21 +149,6 @@
         </div>
       </div>
       <p class="trusted-note container">Dogodny odbiór w pobliżu obwodnicy Trójmiasta, lotniska i dzielnic Matarnia, Osowa oraz Wrzeszcz.</p>
-    </section>
-
-    <section id="dobor" class="selector section-gap tone-cinder">
-      <div class="container selector-layout">
-        <div class="selector-intro reveal">
-          <p class="section-label">Dobór lawety w Gdańsku</p>
-          <h2 class="section-title">Czy Twoje auto wejdzie na lawetę?</h2>
-          <p class="section-lead">Podaj masę i wymiary pojazdu oraz planowaną trasę. Wskażemy właściwą platformę i wariant wynajmu.</p>
-          <div class="selector-specs" aria-label="Maksymalne parametry lawet">
-            <span><strong data-selector-max-payload>—</strong> maks. ładowności</span>
-            <span><strong data-selector-max-platform>—</strong> największa platforma</span>
-          </div>
-        </div>
-        <div data-selector-form-mount></div>
-      </div>
     </section>
 
     <section id="cennik" class="services section-gap tone-carbon">
@@ -192,6 +177,40 @@
             <span class="pricing-limit">Limit 800 km</span>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section id="flota" class="process section-gap tone-cinder">
+      <div class="container process-grid">
+        <div class="process-head reveal">
+          <h2 class="section-title">Flota autolawet</h2>
+          <p class="section-lead">Dwa sprawdzone modele gotowe do wynajmu. Oba prowadzone na prawo jazdy kat. B, DMC 3500 kg.</p>
+        </div>
+        <ol class="steps">
+          <li class="step step-mercedes reveal">
+            <h3>Mercedes Sprinter</h3>
+            <p>Ładowność do 1600 kg. Przestrzeń ładunkowa: 4,50 m x 2,10 m. Wyciągarka 6 ton, pasy do mocowania, najazdy 2,50 m, oświetlenie robocze.</p>
+          </li>
+          <li class="step step-vw reveal">
+            <h3>VW Crafter</h3>
+            <p>Klimatyzacja, wyciągarka 6 ton, przestrzeń ładunkowa 5,10 m x 2,10 m, najazdy 3,00 m. Wygodna opcja na większe pojazdy.</p>
+          </li>
+          <li class="step reveal fleet-carousel-trigger" data-carousel-open role="button" tabindex="0" aria-label="Otwórz galerię zdjęć floty">
+            <h3>Zdjęcia naszej floty</h3>
+            <p>Realne zdjęcia dostępnych autolawet</p>
+          </li>
+        </ol>
+      </div>
+      <div class="container fleet-gallery reveal" aria-label="Galeria autolawet">
+        <figure class="fleet-photo">
+          <img src="resources/photos/foto1.jpg" alt="Autolaweta - zdjęcie 1" loading="lazy">
+        </figure>
+        <figure class="fleet-photo">
+          <img src="resources/photos/foto2.jpg" alt="Autolaweta - zdjęcie 2" loading="lazy">
+        </figure>
+        <figure class="fleet-photo">
+          <img src="resources/photos/foto3.jpg" alt="Autolaweta - zdjęcie 3" loading="lazy">
+        </figure>
       </div>
     </section>
 
@@ -268,6 +287,19 @@
       </div>
     </div>
   </footer>
+
+  <div class="fleet-carousel-modal" data-fleet-carousel-modal aria-hidden="true" role="dialog" aria-modal="true" aria-label="Galeria zdjęć floty">
+    <div class="fleet-carousel-backdrop" data-fleet-carousel-close></div>
+    <div class="fleet-carousel-dialog" role="document">
+      <button class="fleet-carousel-close" type="button" aria-label="Zamknij galerię" data-fleet-carousel-close>&times;</button>
+      <button class="fleet-carousel-nav fleet-carousel-prev" type="button" aria-label="Poprzednie zdjęcie" data-fleet-carousel-prev>&lsaquo;</button>
+      <figure class="fleet-carousel-figure">
+        <img class="fleet-carousel-image" data-fleet-carousel-image src="" alt="Zdjęcie floty">
+        <figcaption class="fleet-carousel-caption" data-fleet-carousel-caption></figcaption>
+      </figure>
+      <button class="fleet-carousel-nav fleet-carousel-next" type="button" aria-label="Następne zdjęcie" data-fleet-carousel-next>&rsaquo;</button>
+    </div>
+  </div>
 
   <a class="mobile-call" href="tel:+48601659781" aria-label="Zadzwoń i zarezerwuj autolawetę">Zadzwoń: 601 659 781</a>
   <script src="resources/scripts/scripts.js"></script>

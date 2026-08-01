@@ -1,0 +1,78 @@
+<section id="dobor" class="selector section-gap tone-cinder">
+  <div class="container selector-layout">
+    <div class="selector-intro reveal">
+      <p class="section-label">Wstępny dobór w minutę</p>
+      <h2 class="section-title">Czy Twoje auto wejdzie na lawetę?</h2>
+      <p class="section-lead">Podaj podstawowe parametry pojazdu i planowaną trasę. Wskażemy odpowiednią platformę oraz wariant wynajmu.</p>
+      <div class="selector-specs" aria-label="Maksymalne parametry lawet">
+        <span><strong data-selector-max-payload>—</strong> maks. ładowności</span>
+        <span><strong data-selector-max-platform>—</strong> największa platforma</span>
+      </div>
+    </div>
+
+    <form class="selector-form reveal" data-selector-form aria-busy="true">
+      <fieldset class="selector-fieldset">
+        <legend>Rodzaj pojazdu</legend>
+        <div class="selector-segments">
+          <label><input type="radio" name="vehicle" value="car" checked><span>Osobowe</span></label>
+          <label><input type="radio" name="vehicle" value="suv"><span>SUV / 4×4</span></label>
+          <label><input type="radio" name="vehicle" value="van"><span>Dostawcze</span></label>
+        </div>
+      </fieldset>
+
+      <p class="selector-group-title">Parametry pojazdu</p>
+      <div class="selector-fields selector-vehicle-fields">
+        <label class="selector-field">
+          <span>Masa</span>
+          <span class="selector-input">
+            <input type="number" name="weight" aria-label="Masa pojazdu w kilogramach" min="400" max="3500" step="10" value="1300" required inputmode="numeric">
+            <small>kg</small>
+          </span>
+        </label>
+        <label class="selector-field">
+          <span>Długość</span>
+          <span class="selector-input">
+            <input type="number" name="length" aria-label="Długość pojazdu w metrach" min="2.5" max="8" step="0.1" value="4.3" required inputmode="decimal">
+            <small>m</small>
+          </span>
+        </label>
+        <label class="selector-field">
+          <span>Szerokość</span>
+          <span class="selector-input">
+            <input type="number" name="width" aria-label="Szerokość pojazdu w metrach" min="1.2" max="3" step="0.05" value="1.8" required inputmode="decimal">
+            <small>m</small>
+          </span>
+        </label>
+      </div>
+
+      <p class="selector-group-title">Plan wynajmu</p>
+      <div class="selector-fields selector-trip-fields">
+        <label class="selector-field">
+          <span>Potrzebny czas</span>
+          <span class="selector-input">
+            <input type="number" name="hours" aria-label="Potrzebny czas w godzinach" min="1" max="48" step="1" value="6" required inputmode="numeric">
+            <small>godz.</small>
+          </span>
+        </label>
+        <label class="selector-field">
+          <span>Trasa łącznie</span>
+          <span class="selector-input">
+            <input type="number" name="distance" aria-label="Planowana trasa łącznie w kilometrach" min="0" max="5000" step="10" value="100" required inputmode="numeric">
+            <small>km</small>
+          </span>
+        </label>
+      </div>
+
+      <div class="selector-result" data-selector-result aria-live="polite">
+        <p class="selector-result-label">Wstępna rekomendacja</p>
+        <div class="selector-result-main">
+          <strong data-selector-truck>Wczytywanie danych…</strong>
+          <span data-selector-plan></span>
+        </div>
+        <p data-selector-note>Za chwilę pokażemy dopasowaną lawetę i wariant wynajmu.</p>
+        <a class="btn btn-primary" href="tel:+48601659781">Potwierdź dostępność: 601 659 781</a>
+      </div>
+      <p class="selector-disclaimer">Wynik ma charakter orientacyjny. Przed rezerwacją potwierdzimy masę, wymiary, rozkład obciążenia i dostępność lawety.</p>
+    </form>
+  </div>
+</section>
