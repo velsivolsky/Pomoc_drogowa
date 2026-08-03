@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://www.autolaweta-sprinter.pl/sitemap.xml
+
 # AI/LLM summary file
 # Some crawlers may use this path.
 LLM: /llms.txt
